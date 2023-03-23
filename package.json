@@ -1,0 +1,21 @@
+{
+  "name": "devops_project",
+  "version": "1.0.0",
+  "description": "Proyecto de DevOps de préstamo escolar de computadoras.",
+  "main": "./src/index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "contributors": [
+    "Andrea Saenz",
+    "Audny Correa",
+    "Isaac Ehuan"
+  ],
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
