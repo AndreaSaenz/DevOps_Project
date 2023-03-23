@@ -1,0 +1,1 @@
+Carpeta para los archivos javaScript del lado del cliente

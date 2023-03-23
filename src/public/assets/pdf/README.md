@@ -1,0 +1,1 @@
+Carpeta para los archivos tipo .pdf del proyecto
