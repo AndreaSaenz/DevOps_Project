@@ -1,3 +1,5 @@
+const Fine = require("../models/Fine");
+
 const getAllFines = () => {
   return;
 };
@@ -12,4 +14,12 @@ const updateOneFine = () => {
 };
 const deleteOneFine = () => {
   return;
+};
+
+module.exports = {
+  getAllFines,
+  getFineById,
+  createNewFine,
+  updateOneFine,
+  deleteOneFine,
 };
