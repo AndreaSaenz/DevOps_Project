@@ -1,46 +1,15 @@
 const express = require("express");
 const router = express.Router();
+const fineController = require("../controllers/fineController");
 
-router.get("/", function (request, response, next) {
-  try {
-    response.send("Here are the list of all the fines");
-  } catch (error) {
-    console.error("Error while getting fines list", error.message);
-    next(error);
-  }
-});
+router.get("/", fineController.getAllFines);
 
-router.get("/:id", function (request, reponse, next) {
-  try {
-  } catch (error) {
-    console.error("Error in the GET BY ID method in fines");
-    next(error);
-  }
-});
+router.get("/:fineId", fineController.getFineById);
 
-router.post("/", function (request, response, next) {
-  try {
-    response.send("Here is the POST method of fines");
-  } catch (error) {
-    console.error("Error in the POST method of fines", error.message);
-    next(error);
-  }
-});
+router.post("/", fineController.createNewFine);
 
-router.put("/:id", function (request, response, next) {
-  try {
-  } catch (error) {
-    console.error("Error in the PUT method of fines", error.message);
-    next(error);
-  }
-});
+router.put("/:fineId", fineController.updateOneFine);
 
-router.delete("/:id", function (request, response, next) {
-  try {
-  } catch (error) {
-    console.error("Error in the DELETE method of fines", error.message);
-    next(error);
-  }
-});
+router.delete("/:fineId", fineController.deleteOneFine);
 
 module.exports = router;
