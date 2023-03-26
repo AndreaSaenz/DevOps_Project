@@ -1,0 +1,20 @@
+{
+  "fines": [
+    {
+      "fineId": 1,
+      "amout": "150",
+      "date": "01-01-20",
+      "remark": "Powerless",
+      "loanId": "007",
+      "status": "true"
+    },
+    {
+      "fineId": 2,
+      "amout": "150",
+      "date": "01-01-21",
+      "remark": "Powerless",
+      "loanId": "010",
+      "status": "true"
+    }
+  ]
+}
