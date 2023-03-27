@@ -1,1 +1,0 @@
-Carpeta para los archivos de base de datos del proyecto
