@@ -69,6 +69,14 @@ const updateOneStudent = (req, res) => {
         res.status(400).json({ status: "FAILED", data: { error: "studentId not indicated"} }); 
     }
 
+    if (
+        //!body.id ||
+        !body.Name ||
+        !body.email 
+    ){
+        res.status(400).json({ status: "FAILED", data: { error: "Name and email can't be null"} });
+    }
+
     try {
         const updatedStudent = studentService.updateOneStudent(studentId, body);
         res.status(200).json(updatedStudent);
@@ -84,14 +92,6 @@ const deleteOneStudent = (req, res) => {
 
     if (!studentId) {
         res.status(400).json({ status: "FAILED", data: { error: "studentId not indicated" } });
-    }
-
-    if (
-        //!body.id ||
-        !body.Name ||
-        !body.email 
-    ){
-        res.status(400).json({ status: "FAILED", data: { error: "Name and email can't be null"} });
     }
 
     try {
