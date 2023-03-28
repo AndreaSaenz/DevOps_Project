@@ -1,7 +1,31 @@
-const createNewUser = (newUser) => {
-  //Query to insert new user on table
-};
+const { DataTypes } = require("sequelize");
+const db = require("../database/config");
 
-module.exports = {
-  createNewUser,
-};
+const User = db.define("user", {
+  id: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+    autoIncrement: true,
+    primaryKey: true,
+  },
+  userName: {
+    type: DataTypes.STRING(50),
+    allowNull: false,
+  },
+  email: {
+    type: DataTypes.STRING(100),
+    allowNull: false,
+  },
+  password: {
+    type: DataTypes.STRING(15),
+    allowNull: false,
+  },
+  lastLogInDate: {
+    type: DataTypes.DATE,
+  },
+  createdDate: {
+    type: DataTypes.DATE,
+  },
+});
+
+module.exports = User;
