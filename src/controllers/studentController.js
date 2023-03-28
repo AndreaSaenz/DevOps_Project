@@ -86,6 +86,14 @@ const deleteOneStudent = (req, res) => {
         res.status(400).json({ status: "FAILED", data: { error: "studentId not indicated" } });
     }
 
+    if (
+        //!body.id ||
+        !body.Name ||
+        !body.email 
+    ){
+        res.status(400).json({ status: "FAILED", data: { error: "Name and email can't be null"} });
+    }
+
     try {
         studentService.deleteOneStudent(studentId);
         res.status(204).json({ status: "OK", message: "Student deleted" });
