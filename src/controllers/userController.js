@@ -1,28 +1,38 @@
+const { Sequelize } = require("sequelize");
+const bcrypt = require("bcrypt");
 const userService = require("../services/userService");
 
 const register = (req, res) => {
   const { body } = req;
 
   if (!(body.userName && body.email && body.password)) {
-    res.status(409).send("Inputs: User name, email and password are required");
+    res.status(409).json({
+      status: "FAILED",
+      data: { error: "Some parameters are missing" },
+    });
   }
 
-  //check if email has already been registered
-
   //encrypt password
+  encryptedPassword = bcrypt.hash(password, 10);
 
   //Date created
   const today = getDate();
 
-  const newUser = {
-    userName: body.userName,
-    email: body.email,
-    //password: encriptedpass,
-    lastLoginDate: today,
-    createdDate: today,
-  };
-  const createdUser = userService.registerNewUser(newUser);
-  res.status(201).send({ status: "OK", data: createdUser });
+  try {
+    const newUser = {
+      userName: body.userName,
+      email: body.email,
+      password: encriptedPassword,
+      lastLoginDate: today,
+      createdDate: today,
+    };
+    const createdUser = userService.registerNewUser(newUser);
+    res.status(201).send({ status: "OK", data: createdUser });
+  } catch (error) {
+    res
+      .status(error?.status || 500)
+      .json({ status: "FAILED", data: { error: error?.message || error } });
+  }
 };
 
 const logIn = (req, res) => {
@@ -39,7 +49,7 @@ function getDate() {
   var month = String(today.getMonth() + 1);
   var year = String(today.getFullYear());
 
-  today = month + "-" + day + "-" + year;
+  today = year + "-" + month + "-" + day;
   return today;
 }
 
