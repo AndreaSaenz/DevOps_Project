@@ -1,8 +1,8 @@
 const studentService = require('../services/studentServices');
 
-const getAllStudents = (req, res) => {
+const getAllStudents = async (req, res) => {
     try { 
-        const allStudents = studentService.getAllStudents();
+        const allStudents = await studentService.getAllStudents();
         res.status(200).json(allStudents);
     } catch (error) {
         res
@@ -11,15 +11,15 @@ const getAllStudents = (req, res) => {
     }
 };
 
-const getStudentById = (req, res) => {
-    const { params: studentId } = req; 
+const getStudentById = async (req, res) => {
+    const studentId = req.params.studentId;
 
     if (!studentId) {
         res.status(400).json({ status: "FAILED", data: { error: "studentId not indicated" } });
     }
 
     try {
-        const foundStudent = studentService.getStudentById(req.params.studentId);
+        const foundStudent =  await studentService.getStudentById(studentId);
         res.status(200).json(foundStudent);
     } catch (error) {
         res
@@ -28,7 +28,7 @@ const getStudentById = (req, res) => {
     }   
 };
 
-const createNewStudent = (req, res) => {
+const createNewStudent = async (req, res) => {
     const { body } = req;
 
     if (
@@ -52,7 +52,7 @@ const createNewStudent = (req, res) => {
             semestre: body.semestre
         };
 
-        const createdStudent = studentService.createNewStudent(newStudent);
+        const createdStudent = await studentService.createNewStudent(newStudent);
         res.status(201).json({ status: "OK", data: createdStudent});
     } catch (error) {
         res
@@ -61,7 +61,7 @@ const createNewStudent = (req, res) => {
     }
 };
 
-const updateOneStudent = (req, res) => {
+const updateOneStudent = async (req, res) => {
     const studentId = req.params.studentId;
     const { body } = req;
 
@@ -78,7 +78,7 @@ const updateOneStudent = (req, res) => {
     }
 
     try {
-        const updatedStudent = studentService.updateOneStudent(studentId, body);
+        const updatedStudent = await studentService.updateOneStudent(studentId, body);
         res.status(200).json(updatedStudent);
     } catch (error) {
         res
@@ -87,15 +87,15 @@ const updateOneStudent = (req, res) => {
     }
 };
 
-const deleteOneStudent = (req, res) => {
-    const { params: studentId } = req; 
+const deleteOneStudent = async (req, res) => {
+    const studentId = req.params.studentId; 
 
     if (!studentId) {
         res.status(400).json({ status: "FAILED", data: { error: "studentId not indicated" } });
     }
 
     try {
-        studentService.deleteOneStudent(studentId);
+        await studentService.deleteOneStudent(studentId);
         res.status(204).json({ status: "OK", message: "Student deleted" });
     } catch (error) {
         res

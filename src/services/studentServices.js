@@ -27,7 +27,7 @@ const getStudentById = async (studentId) => {
 
 const createNewStudent = async (newStudent) => {
     try {
-        const foundStudent = await Student.findByPk(studentId);
+        const foundStudent = await Student.findOne({ where: newStudent });
         if ( foundStudent ) {
             throw {
                 status: 400,
@@ -50,15 +50,12 @@ const updateOneStudent = async (studentId, changes) => {
                 message: "Student not found",
               }; 
         }
-        await updatedStudent.save(changes);
+        await updatedStudent.update(changes);
         updatedStudent.reload();
         return updatedStudent;
     } catch (error){
         throw { status: error?.status || 500, message: error?.message || error };
-    }
-
-    
-    
+    }    
 };
 
 const deleteOneStudent = async (studentId) => {
