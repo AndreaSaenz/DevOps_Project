@@ -29,6 +29,7 @@ const Loan = db.define('solicitud', {
     }
 },
 {
+    freezeTableName: true,
     createdAt: 'fechaInicio'
 });
 
