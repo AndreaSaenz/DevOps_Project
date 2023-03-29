@@ -8,7 +8,7 @@ const PORT = 3000
 (async () => {
   try {
     await db.authenticate();
-    //await db.sync();
+    await db.sync({ alter: true });
     console.log("Connection with database successful");
   } catch (error) {
     throw error;
