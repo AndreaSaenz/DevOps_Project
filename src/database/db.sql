@@ -2,13 +2,13 @@ SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
 SET time_zone = "+00:00";
 
--- to create a new database
+/*-- to create a new database*/
 CREATE DATABASE DevopsProyectdb;
 
--- to use database
+/*-- to use database*/
 use DevopsProyectdb;
 
--- creating a new table
+/*-- creating a new table*/
 CREATE TABLE user (
   id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
   userName VARCHAR(50) NOT NULL,
@@ -18,8 +18,11 @@ CREATE TABLE user (
   createdDate Date
 ); -- ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+/*
 ALTER TABLE `user`
   ADD PRIMARY KEY (`id`);
+COMMIT;
+*/
 
 ALTER TABLE `user`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
@@ -53,7 +56,7 @@ CREATE TABLE computadora (
   tamanioMonitor INT,
   capacidadRAM INT,
   procesador VARCHAR(50)
-); --ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+); -- ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 
 CREATE TABLE multa (
@@ -63,9 +66,9 @@ CREATE TABLE multa (
   observacion VARCHAR(250),
   folioSolicitud DATE,
   estado BOOLEAN
-); --ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+); -- ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- to show all tables
+/*-- to show all tables*/
 show tables;
 
 
