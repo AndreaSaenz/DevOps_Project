@@ -41,6 +41,15 @@ const logIn = (req, res) => {
   if (!(body.userName && body.password)) {
     res.status(400).send("User name and password are required");
   }
+
+  try {
+    const user = userService.logInUser(body.userName, body.password);
+    res.status(201).send({ status: "OK", data: user });
+  } catch (error) {
+    res
+      .status(error?.status || 500)
+      .json({ status: "FAILED", data: { error: error?.message || error } });
+  }
 };
 
 function getDate() {
