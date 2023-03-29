@@ -25,6 +25,9 @@ const Student = db.define('alumno', {
     semestre: {
         type: DataTypes.INTEGER
     }
+},
+{
+    freezeTableName: true
 });
 
 module.exports = Student;
