@@ -1,4 +1,5 @@
 const { Sequelize } = require("sequelize");
+const bcrypt = require("bcrypt");
 const User = require("../models/User");
 
 const registerNewUser = async (newUser) => {
@@ -17,6 +18,17 @@ const registerNewUser = async (newUser) => {
   }
 };
 
+const logInUser = async (username, password) => {
+  try {
+    const foundUser = await User.findOne({ where: { userName: username } });
+    if (foundUser && (await bcrypt.compare(password, foundUser.password))) {
+    }
+  } catch (error) {
+    throw { status: error?.status || 500, message: error?.message || error };
+  }
+};
+
 module.exports = {
   registerNewUser,
+  logInUser,
 };
