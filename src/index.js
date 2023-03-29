@@ -3,7 +3,7 @@ const studentRouter = require("./routes/studentRoutes");
 const db = require("./database/config");
 const app = express()
 
-const PORT = 3000
+const PORT = 3000;
 
 (async () => {
   try {
