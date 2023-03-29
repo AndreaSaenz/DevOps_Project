@@ -1,57 +1,60 @@
 const fineService = require("../services/fineService");
 
-const getAllFines = (req, res) => {
-  const allFines = fineService.getAllFines();
+const getAllFines = async (req, res) => {
+  const allFines = await fineService.getAllFines();
   res.send({ status: "200", data: allFines });
 };
 
-const getFineById = (req, res) => {
-  const fine = fineService.getFineById(req.params.fineId);
+const getFineById = async (req, res) => {
+  const fine = await fineService.getFineById(req.params.fineId);
   //res.send(`Get the fine ${req.params.fineId}`);
   res.send({ status: "200", data: fine });
 };
 
-const createNewFine = (req, res) => {
+const createNewFine = async (req, res) => {
   const { body } = req;
 
   // Validation for all the necessary info
-  if (
-    !body.fineId ||
-    !body.amount ||
-    !body.date ||
-    !body.remark ||
-    !body.loanId ||
-    !body.status
-  ) {
-    return { message: "You didn't submmit the necesary parameters. " };
-  }
+  // if (
+  //   !(
+  //     body.id &&
+  //     body.monto &&
+  //     body.fecha &&
+  //     body.observacion &&
+  //     body.folioSolictud &&
+  //     body.estado
+  //   )
+  // ) {
+  //   return { message: "You didn't submmit the necesary parameters. " };
+  // }
 
   const newFine = {
-    fineId: body.fineId,
-    amount: body.amount,
-    date: body.date,
-    remark: body.remark,
-    loanId: body.loanId,
-    status: body.status,
+    id: body.id,
+    monto: body.monto,
+    fecha: body.date,
+    observacion: body.observacion,
+    folioSolicitud: body.folioSolicitud,
+    estado: body.estado,
   };
-  const createdFine = fineService.createNewFine(newFine);
+  const createdFine = await fineService.createNewFine(JSON.parse(newFine));
+  console.log(createdFine);
   res.status(201).send({ status: "OK", data: createdFine });
 };
 
-const updateOneFine = (req, res) => {
+const updateOneFine = async (req, res) => {
   const fineId = req.params.fineId;
   const fineStatus = req.params.status;
 
   if (!fineId || !fineStatus) {
     return;
   }
-  const updatedFine = fineService.updateOneFine(fineId, fineStatus);
+  const updatedFine = await fineService.updateOneFine(fineId, fineStatus);
   //res.send(`Update fine ${req.params.fineId}`);
   res.status(200).send({ status: "OK", data: updatedFine });
 };
 
-const deleteOneFine = (req, res) => {
-  fineService.deleteOneFine(req.params.fineId);
+const deleteOneFine = async (req, res) => {
+  await fineService.deleteOneFine(req.params.fineId);
   //res.send(`Delete fine ${req.params.fineId}`);
   res.send({ status: "OK", message: "Fine Deleted" });
 };

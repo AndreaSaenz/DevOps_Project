@@ -4,7 +4,7 @@ const fineController = require("../controllers/fineController");
 
 router.get("/", fineController.getAllFines);
 
-router.get("/:fineId", fineController.getFineById);
+router.get("/get/:fineId", fineController.getFineById);
 
 router.post("/", fineController.createNewFine);
 
