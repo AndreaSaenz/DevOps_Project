@@ -16,15 +16,12 @@ const register = (req, res) => {
   encryptedPassword = bcrypt.hash(password, 10);
 
   //Date created
-  const today = getDate();
 
   try {
     const newUser = {
       userName: body.userName,
       email: body.email,
       password: encriptedPassword,
-      lastLoginDate: today,
-      createdDate: today,
     };
     const createdUser = userService.registerNewUser(newUser);
     res.status(201).send({ status: "OK", data: createdUser });
@@ -52,15 +49,15 @@ const logIn = (req, res) => {
   }
 };
 
-function getDate() {
-  var today = new Date();
-  var day = String(today.getDate());
-  var month = String(today.getMonth() + 1);
-  var year = String(today.getFullYear());
+// function getDate() {
+//   var today = new Date();
+//   var day = String(today.getDate());
+//   var month = String(today.getMonth() + 1);
+//   var year = String(today.getFullYear());
 
-  today = year + "-" + month + "-" + day;
-  return today;
-}
+//   today = year + "-" + month + "-" + day;
+//   return today;
+// }
 
 module.exports = {
   register,
