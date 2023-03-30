@@ -1,10 +1,13 @@
 const express = require('express');
-const studentRouter = require("./routes/studentRoutes"); 
-const loanRouter = require("./routes/loanRoutes"); 
 const db = require("./database/config");
 const app = express();
 
 const PORT = 3000;
+
+const userListRouter = require("./routes/userRoutes");
+const studentRouter = require("./routes/studentRoutes"); 
+const loanRouter = require("./routes/loanRoutes"); 
+const finesListRouter = require("./routes/fineRoutes");
 
 (async () => {
   try {
@@ -17,9 +20,23 @@ const PORT = 3000;
 })()
 
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
+app.get("/", function (req, res) {
+  res.send("Hello world");
+});
+
+app.use("/user", userListRouter);
 app.use("/students", studentRouter);
 app.use("/loans", loanRouter);
+app.use("/fines", finesListRouter);
+
+app.use((err, req, res, next) => {
+  const statusCode = err.statusCode || 500;
+  console.error(err.message, err.stack);
+  res.status(statusCode).json({ message: err.message });
+  return;
+})
 
 app.listen(PORT, () => {
   console.log(`DevOps_Project listening on port ${PORT}`)
