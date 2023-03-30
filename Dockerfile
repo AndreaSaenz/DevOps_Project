@@ -1,6 +1,6 @@
 FROM node:18-alphine
 
-WORKDIR /src/index
+WORKDIR /DevOps_Project/src/index.js
 
 COPY package*.json ./
 
