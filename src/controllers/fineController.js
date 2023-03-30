@@ -1,13 +1,34 @@
 const fineService = require("../services/fineServices");
 
 const getAllFines = async (req, res) => {
-  const allFines = await fineService.getAllFines();
-  res.send({ status: "200", data: allFines });
+  try {
+    const allFines = await fineService.getAllFines();
+    res.status(200).json(allFines);
+  } catch (error) {
+    res
+      .status(error?.status || 500)
+      .json({ status: "FAILED", data: { error: error?.message || error } });
+  }  
 };
 
 const getFineById = async (req, res) => {
-  const fine = await fineService.getFineById(req.params.fineId);
-  res.send({ status: "200", data: fine });
+  const studentId = req.params.fineId;
+
+  if (!fineId) {
+    res
+      .status(400)
+      .json({ status: "FAILED", data: { error: "fineId not indicated" } });
+    return;
+  }
+
+  try {
+    const foundFine = await fineService.getFineById(fineId);
+    res.status(200).json(foundFine);
+  } catch (error) {
+    res
+      .status(error?.status || 500)
+      .json({ status: "FAILED", data: { error: error?.message || error } });
+  }
 };
 
 const createNewFine = async (req, res) => {
@@ -15,33 +36,79 @@ const createNewFine = async (req, res) => {
 
   // Validation for all the necessary info
   if (!(body.monto && body.observacion && body.folioSolictud && body.estado)) {
-    return { message: "You didn't submmit the necesary parameters. " };
+    res
+      .status(400)
+      .json({
+        status: "FAILED",
+        data: { error: "Some parameters are missing" },
+      });
+    return;
   }
 
-  const newFine = {
-    monto: body.monto,
-    observacion: body.observacion,
-    folioSolicitud: body.folioSolicitud,
-    estado: body.estado,
-  };
-  const createdFine = await fineService.createNewFine(newFine);
-  res.status(201).send({ status: "OK", data: createdFine });
+  try{
+    const newFine = {
+      monto: body.monto,
+      observacion: body.observacion,
+      folioSolicitud: body.folioSolicitud,
+      estado: body.estado,
+    };
+    
+    const createdFine = await fineService.createNewFine(newFine);
+    res.status(201).json({ status: "OK", data: createdFine });
+  } catch (error) {
+    res
+      .status(error?.status || 500)
+      .json({ status: "FAILED", data: { error: error?.message || error } });
+  }
 };
 
 const updateOneFine = async (req, res) => {
   const fineId = req.params.fineId;
   const { body } = req;
 
-  if (!fineId || !body.estado) {
-    return { message: "Enter the fine id and nw status" };
+  if (!studentId) {
+    res
+      .status(400)
+      .json({ status: "FAILED", data: { error: "fineId not indicated" } });
+    return;
   }
-  const updatedFine = await fineService.updateOneFine(fineId, body.estado);
-  res.status(200).send({ status: "OK", data: updatedFine });
+
+  if (!body.estado) {
+    res
+      .status(400)
+      .json({ status: "FAILED", data: { error: "Status can't be null" }});
+    return;
+  }
+
+  try {
+    const updatedFine = await fineService.updateOneFine(fineId, body);
+    res.status(200).json(updatedFine);
+  } catch (error) {
+    res
+    .status(error?.status || 500)
+    .json({ status: "FAILED", data: { error: error?.message || error } });
+  } 
 };
 
 const deleteOneFine = async (req, res) => {
-  await fineService.deleteOneFine(req.params.fineId);
-  res.send({ status: "OK", message: "Fine Deleted" });
+
+  const fineId = req.params.fineId;
+
+  if (!fineId) {
+    res
+      .status(400)
+      .json({ status: "FAILED", data: { error: "fineId not indicated" } });
+    return;
+  }
+
+  try {
+    await fineService.deleteOneFine(fineId);
+    res.status(204).json({ status: "OK", message: "Student deleted" });
+  } catch (error) {
+    res
+      .status(error?.status || 500)
+      .json({ status: "FAILED", data: { error: error?.message || error } });
+  }
 };
 
 module.exports = {

@@ -12,7 +12,7 @@ const getAllComputers = async (req, res) => {
 };
 
 const getComputerById = async (req, res) => {
-    const ComputerId = req.params.computertId;
+    const ComputerId = req.params.computerId;
 
     if (!ComputerId) {
         res.status(400).json({ status: "FAILED", data: { error: "computerId not indicated" } });

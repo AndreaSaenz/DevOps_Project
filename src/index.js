@@ -4,11 +4,11 @@ const app = express();
 
 const PORT = 3000;
 
-const userListRouter = require("./routes/userRoutes");
+const userRouter = require("./routes/userRoutes");
 const studentRouter = require("./routes/studentRoutes"); 
 const computerRouter = require("./routes/computerRoutes");
 const loanRouter = require("./routes/loanRoutes"); 
-const finesListRouter = require("./routes/fineRoutes");
+const fineRouter = require("./routes/fineRoutes");
 
 (async () => {
   try {
@@ -27,11 +27,11 @@ app.get("/", function (req, res) {
   res.send("Hello world");
 });
 
-app.use("/user", userListRouter);
+app.use("/user", userRouter);
 app.use("/students", studentRouter);
 app.use("/computers", computerRouter);
 app.use("/loans", loanRouter);
-app.use("/fines", finesListRouter);
+app.use("/fines", fineRouter);
 
 app.use((err, req, res, next) => {
   const statusCode = err.statusCode || 500;

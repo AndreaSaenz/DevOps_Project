@@ -44,10 +44,7 @@ const createNewStudent = async (req, res) => {
   ) {
     res
       .status(400)
-      .json({
-        status: "FAILED",
-        data: { error: "Some parameters are missing" },
-      });
+      .json({ status: "FAILED", data: { error: "Some parameters are missing" } });
     return;
   }
 
@@ -88,18 +85,12 @@ const updateOneStudent = async (req, res) => {
   ) {
     res
       .status(400)
-      .json({
-        status: "FAILED",
-        data: { error: "Name and email can't be null" },
-      });
+      .json({ status: "FAILED", data: { error: "Name and email can't be null" }});
     return;
   }
 
   try {
-    const updatedStudent = await studentService.updateOneStudent(
-      studentId,
-      body
-    );
+    const updatedStudent = await studentService.updateOneStudent(studentId, body);
     res.status(200).json(updatedStudent);
   } catch (error) {
     res
