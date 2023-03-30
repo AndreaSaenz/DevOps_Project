@@ -5,12 +5,12 @@ var computerController = require('../controllers/computerController');
 
 router.get("/", computerController.getAllComputers);
 
-router.get("/:computerId", computerController.getComuterById);
+router.get("/:computerId", computerController.getComputerById);
 
-router.post("/", computerController.createNewComuter);
+router.post("/", computerController.createNewComputer);
 
-router.put("/:computerId", computerController.updateOneComuter);
+router.put("/:computerId", computerController.updateOneComputer);
 
-router.delete("/:computerId", computerController.deleteOneComuter);
+router.delete("/:computerId", computerController.deleteOneComputer);
 
 module.exports = router;
