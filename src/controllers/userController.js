@@ -1,6 +1,6 @@
 const { Sequelize } = require("sequelize");
 const bcrypt = require("bcrypt");
-const userService = require("../services/userService");
+const userService = require("../services/userServices");
 
 const register = async (req, res) => {
   const { body } = req;
