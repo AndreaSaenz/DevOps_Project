@@ -1,4 +1,4 @@
-const fineService = require("../services/fineService");
+const fineService = require("../services/fineServices");
 
 const getAllFines = async (req, res) => {
   const allFines = await fineService.getAllFines();
