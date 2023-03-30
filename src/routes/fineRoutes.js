@@ -16,20 +16,12 @@ const verifyToken = require("../middlewares/auth");
 
 router.get("/", verifyToken, fineController.getAllFines);
 
-router.get("/get/:fineId", verifyToken, async (req, res) => {
-  await fineController.getFineById();
-});
+router.get("/get/:fineId", verifyToken, fineController.getFineById);
 
-router.post("/", verifyToken, async (req, res) => {
-  await fineController.createNewFine();
-});
+router.post("/", verifyToken, fineController.createNewFine);
 
-router.put("/:fineId", verifyToken, async (req, res) => {
-  await fineController.updateOneFine();
-});
+router.put("/:fineId", verifyToken, fineController.updateOneFine);
 
-router.delete("/:fineId", verifyToken, async (req, res) => {
-  await fineController.deleteOneFine();
-});
+router.delete("/:fineId", verifyToken, fineController.deleteOneFine);
 
 module.exports = router;

@@ -40,14 +40,11 @@ const logIn = async (req, res) => {
   try {
     const user = await userService.logInUser(body.userName, body.password);
     const token = jwt.sign({ user: user }, "secretKey");
-    res
-      .status(201)
-      .send({
-        status: "Ok",
-        message: "Welcome " + user.userName,
-        token: token,
-      });
-    //res.send({ status: "OK", message: "Welcome " + user.userName, data: user });
+    res.status(201).send({
+      status: "Ok",
+      message: "Welcome ",
+      token: token,
+    });
   } catch (error) {
     res
       .status(error?.status || 500)

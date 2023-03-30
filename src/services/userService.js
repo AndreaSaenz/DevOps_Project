@@ -13,15 +13,6 @@ const registerNewUser = async (newUser, res) => {
       };
     }
     const createdUser = await User.create(newUser);
-    // const token = jwt.sign(
-    //   { user: createdUser },
-    //   process.env.TOKEN_KEY,
-    //   (err, token) => {
-    //     res.send({ token: token });
-    //   }
-    // );
-    // save user token
-    // createdUser.token = token;
 
     // return new user
     return createdUser;
