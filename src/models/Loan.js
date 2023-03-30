@@ -9,16 +9,16 @@ const Loan = db.define('solicitud', {
         primaryKey: true
     },
     estado: {
-        type: DataTypes.BOOLEAN //, 
-       // allowNull: false
+        type: DataTypes.BOOLEAN, //true=devuelto, false=no devuelto
+        allowNull: false
     },
-    fechaInicio:{ 
-        type: DataTypes.DATE //,
-        //allowNull: false
-    }, 
+    /*fechaInicio:{ 
+        type: DataTypes.DATE,
+        allowNull: false
+    }, */
     fechaEstipuladaDev:{ 
-        type: DataTypes.DATE //,
-        //allowNull: false
+        type: DataTypes.DATE,
+        allowNull: false
     },
     fechaRealDev: { 
         type: DataTypes.DATE //,
