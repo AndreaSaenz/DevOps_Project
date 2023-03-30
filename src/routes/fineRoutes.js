@@ -16,7 +16,7 @@ const verifyToken = require("../middlewares/auth");
 
 router.get("/", verifyToken, fineController.getAllFines);
 
-router.get("/get/:fineId", verifyToken, fineController.getFineById);
+router.get("/:fineId", verifyToken, fineController.getFineById);
 
 router.post("/", verifyToken, fineController.createNewFine);
 
