@@ -1,5 +1,5 @@
 const { Sequelize } = require('sequelize');
-const Computer = require('../models/computer');
+const Computer = require('../models/Computer');
 
 const getAllComputers = async () => {
     try { 
