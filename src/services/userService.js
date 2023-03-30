@@ -3,7 +3,7 @@ const bcrypt = require("bcrypt");
 const User = require("../models/User");
 const jwt = require("jsonwebtoken");
 
-const registerNewUser = async (newUser) => {
+const registerNewUser = async (newUser, res) => {
   try {
     const foundUser = await User.findOne({ where: { email: newUser.email } });
     if (foundUser) {
@@ -13,9 +13,15 @@ const registerNewUser = async (newUser) => {
       };
     }
     const createdUser = await User.create(newUser);
-    const token = jwt.sign({ id: createdUser.id }, process.env.TOKEN_KEY);
+    // const token = jwt.sign(
+    //   { user: createdUser },
+    //   process.env.TOKEN_KEY,
+    //   (err, token) => {
+    //     res.send({ token: token });
+    //   }
+    // );
     // save user token
-    createdUser.token = token;
+    // createdUser.token = token;
 
     // return new user
     return createdUser;
@@ -28,10 +34,9 @@ const logInUser = async (username, password) => {
   try {
     const foundUser = await User.findOne({ where: { userName: username } });
     if (foundUser && (await bcrypt.compare(password, foundUser.password))) {
-      const token = jwt.sign({ id: foundUser.id }, process.env.TOKEN_KEY);
-      foundUser.token = token;
+      return foundUser;
     }
-    return foundUser;
+    return { message: "Your user name or password are incorrect" };
   } catch (error) {
     throw { status: error?.status || 500, message: error?.message || error };
   }
