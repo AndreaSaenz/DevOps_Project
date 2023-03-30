@@ -16,6 +16,7 @@ const getStudentById = async (req, res) => {
 
     if (!studentId) {
         res.status(400).json({ status: "FAILED", data: { error: "studentId not indicated" } });
+        return;
     }
 
     try {
@@ -40,6 +41,7 @@ const createNewStudent = async (req, res) => {
         !body.semestre
     ){
         res.status(400).json({ status: "FAILED", data: { error: "Some parameters are missing"} });
+        return;
     }
 
     try { 
@@ -66,7 +68,8 @@ const updateOneStudent = async (req, res) => {
     const { body } = req;
 
     if (!studentId) {
-        res.status(400).json({ status: "FAILED", data: { error: "studentId not indicated"} }); 
+        res.status(400).json({ status: "FAILED", data: { error: "studentId not indicated"} });
+        return; 
     }
 
     if (
@@ -75,6 +78,7 @@ const updateOneStudent = async (req, res) => {
         !body.email 
     ){
         res.status(400).json({ status: "FAILED", data: { error: "Name and email can't be null"} });
+        return;
     }
 
     try {
@@ -92,6 +96,7 @@ const deleteOneStudent = async (req, res) => {
 
     if (!studentId) {
         res.status(400).json({ status: "FAILED", data: { error: "studentId not indicated" } });
+        return;
     }
 
     try {
