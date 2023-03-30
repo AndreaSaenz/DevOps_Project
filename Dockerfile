@@ -1,6 +1,6 @@
 FROM node:18-alphine
 
-WORKDIR /src
+WORKDIR /index
 
 COPY package*.json ./
 
