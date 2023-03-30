@@ -2,7 +2,7 @@ const { Sequelize } = require("sequelize");
 const bcrypt = require("bcrypt");
 const userService = require("../services/userService");
 
-const register = (req, res) => {
+const register = async (req, res) => {
   const { body } = req;
 
   if (!(body.userName && body.email && body.password)) {
@@ -13,18 +13,16 @@ const register = (req, res) => {
   }
 
   //encrypt password
-  encryptedPassword = bcrypt.hash(password, 10);
-
-  //Date created
+  encryptedPassword = await bcrypt.hash(body.password, 10);
 
   try {
     const newUser = {
       userName: body.userName,
       email: body.email,
-      password: encriptedPassword,
+      password: encryptedPassword,
     };
-    const createdUser = userService.registerNewUser(newUser);
-    res.status(201).send({ status: "OK", data: createdUser });
+    const createdUser = await userService.registerNewUser(newUser);
+    res.status(201).send({ status: "OK", data: createdUser.token });
   } catch (error) {
     res
       .status(error?.status || 500)
@@ -32,32 +30,20 @@ const register = (req, res) => {
   }
 };
 
-const logIn = (req, res) => {
+const logIn = async (req, res) => {
   const { body } = req;
-
   if (!(body.userName && body.password)) {
     res.status(400).send("User name and password are required");
   }
-
   try {
-    const user = userService.logInUser(body.userName, body.password);
-    res.status(201).send({ status: "OK", data: user });
+    const user = await userService.logInUser(body.userName, body.password);
+    res.status(201).send({ status: "OK", message: "Welcome " + user.userName });
   } catch (error) {
     res
       .status(error?.status || 500)
       .json({ status: "FAILED", data: { error: error?.message || error } });
   }
 };
-
-// function getDate() {
-//   var today = new Date();
-//   var day = String(today.getDate());
-//   var month = String(today.getMonth() + 1);
-//   var year = String(today.getFullYear());
-
-//   today = year + "-" + month + "-" + day;
-//   return today;
-// }
 
 module.exports = {
   register,

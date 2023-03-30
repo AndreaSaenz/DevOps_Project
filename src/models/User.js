@@ -2,7 +2,7 @@ const { DataTypes } = require("sequelize");
 const db = require("../database/config");
 
 const User = db.define(
-  "user",
+  "users",
   {
     id: {
       type: DataTypes.INTEGER,
@@ -23,7 +23,7 @@ const User = db.define(
       allowNull: false,
     },
     token: {
-      type: DataTypes.STRING,
+      type: DataTypes.STRING(255),
     },
   },
   {
@@ -33,4 +33,5 @@ const User = db.define(
   }
 );
 
+User.sync();
 module.exports = User;
