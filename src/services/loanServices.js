@@ -27,7 +27,7 @@ const getLoanById = async (loanId) => {
 
 const createNewLoan = async (newLoan) => {
     try {
-        const foundLoan = await Loan.findByPk(loanId);
+        const foundLoan = await Loan.findOne({ where: newLoan });
         if ( foundLoan ) {
             throw {
                 status: 400,
@@ -50,7 +50,7 @@ const updateOneLoan = async (loanId, changes) => {
                 message: "Loan not found",
               }; 
         }
-        await updatedLoan.save(changes);
+        await updatedLoan.update(changes);
         updatedLoan.reload();
         return updatedLoan;
     } catch (error){
