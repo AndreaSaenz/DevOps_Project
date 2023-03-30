@@ -1,7 +1,11 @@
 const express = require("express");
 const app = express();
 const port = 3000;
+
 const userListRouter = require("./routes/userRoutes");
+
+const finesListRouter = require("./routes/fineRoutes");
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -9,7 +13,11 @@ app.get("/", function (req, res) {
   res.send("Hello world");
 });
 
+
 app.use("/user", userListRouter);
+
+app.use("/fines", finesListRouter);
+
 
 app.use((err, req, res, next) => {
   const statusCode = err.statusCode || 500;
