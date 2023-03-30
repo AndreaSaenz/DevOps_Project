@@ -37,7 +37,9 @@ const logIn = async (req, res) => {
   }
   try {
     const user = await userService.logInUser(body.userName, body.password);
-    res.status(201).send({ status: "OK", message: "Welcome " + user.userName });
+    res
+      .status(201)
+      .send({ status: "OK", message: "Welcome " + user.userName, data: user });
   } catch (error) {
     res
       .status(error?.status || 500)
