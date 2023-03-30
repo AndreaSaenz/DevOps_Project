@@ -27,15 +27,14 @@ const getFineById = async (fineId) => {
 
 const createNewFine = async (newFine) => {
   try {
-    const foundFine = await Fine.findOne({ where: { id: newFine.id } });
-    console.log(foundFine);
+    const foundFine = await Fine.findOne({ where: newFine });
     if (foundFine) {
       throw {
         status: 400,
         message: "Fine already exists.",
       };
     }
-    const createdFine = Fine.create(newFine);
+    const createdFine = await Fine.create(newFine);
     return createdFine;
   } catch (error) {
     throw { status: error?.status || 500, message: error?.message || error };
@@ -51,9 +50,9 @@ const updateOneFine = async (fineId, fineStatus) => {
         message: "Fine already exists.",
       };
     }
-    await updateFine.save(fineStatus);
+    await updateFine.update({ estado: fineStatus });
     updateFine.reload();
-    return foundFine;
+    return updateFine;
   } catch (error) {
     throw { status: error?.status || 500, message: error?.message || error };
   }
@@ -65,7 +64,7 @@ const deleteOneFine = async (fineId) => {
     if (!fineToDelete) {
       throw {
         status: 400,
-        message: "Fine already exists.",
+        message: "Fine doesn't exists.",
       };
     }
     await fineToDelete.destroy();

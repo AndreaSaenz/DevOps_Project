@@ -8,7 +8,7 @@ router.get("/get/:fineId", fineController.getFineById);
 
 router.post("/", fineController.createNewFine);
 
-router.put("/:fineId/:status", fineController.updateOneFine);
+router.put("/:fineId", fineController.updateOneFine);
 
 router.delete("/:fineId", fineController.deleteOneFine);
 

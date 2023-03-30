@@ -1,3 +1,5 @@
 node_modules
 .env
-src/database.config.js
+src/database/config.js
+package.json
+package-lock.json
