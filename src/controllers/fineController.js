@@ -12,7 +12,7 @@ const getAllFines = async (req, res) => {
 };
 
 const getFineById = async (req, res) => {
-  const studentId = req.params.fineId;
+  const fineId = req.params.fineId;
 
   if (!fineId) {
     res
@@ -66,7 +66,7 @@ const updateOneFine = async (req, res) => {
   const fineId = req.params.fineId;
   const { body } = req;
 
-  if (!studentId) {
+  if (!fineId) {
     res
       .status(400)
       .json({ status: "FAILED", data: { error: "fineId not indicated" } });
@@ -103,7 +103,7 @@ const deleteOneFine = async (req, res) => {
 
   try {
     await fineService.deleteOneFine(fineId);
-    res.status(204).json({ status: "OK", message: "Student deleted" });
+    res.status(204).json({ status: "OK", message: "Fine deleted" });
   } catch (error) {
     res
       .status(error?.status || 500)

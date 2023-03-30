@@ -46,7 +46,7 @@ const createNewComputer = async (req, res) => {
     }
 
     try { 
-        const newStudent = {
+        const newComputer = {
             //id: body.id,
             Name: body.Name,        
             yearModel: body.yearModel, 
@@ -100,7 +100,7 @@ const deleteOneComputer= async (req, res) => {
     }
 
     try {
-        await studentService.deleteOneComputer(computerId);
+        await computerService.deleteOneComputer(computerId);
         res.status(204).json({ status: "OK", message: "Computer deleted" });
     } catch (error) {
         res
