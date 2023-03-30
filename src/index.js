@@ -6,6 +6,7 @@ const PORT = 3000;
 
 const userListRouter = require("./routes/userRoutes");
 const studentRouter = require("./routes/studentRoutes"); 
+const computerRouter = require("./routes/computerRoutes");
 const loanRouter = require("./routes/loanRoutes"); 
 const finesListRouter = require("./routes/fineRoutes");
 
@@ -28,6 +29,7 @@ app.get("/", function (req, res) {
 
 app.use("/user", userListRouter);
 app.use("/students", studentRouter);
+app.use("/computers", computerRouter);
 app.use("/loans", loanRouter);
 app.use("/fines", finesListRouter);
 
