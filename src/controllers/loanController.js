@@ -1,8 +1,8 @@
 const loanService = require('../services/loanServices');
 
-const getAllLoans = (req, res) => {
+const getAllLoans = async (req, res) => {
     try { 
-        const allLoans = loanService.getAllLoans();
+        const allLoans = await loanService.getAllLoans();
         res.status(200).json(allLoans);
     } catch (error) {
         res
@@ -11,15 +11,16 @@ const getAllLoans = (req, res) => {
     }
 };
 
-const getLoanById = (req, res) => {
-    const { params: loanId } = req; 
+const getLoanById = async (req, res) => {
+    const loanId = req.params.loanId; 
 
     if (!loanId) {
         res.status(400).json({ status: "FAILED", data: { error: "loanId not indicated" } });
+        return;
     }
 
     try {
-        const foundLoan = loanService.getLoanById(req.params.loanId);
+        const foundLoan = await loanService.getLoanById(loanId);
         res.status(200).json(foundLoan);
     } catch (error) {
         res
@@ -28,7 +29,7 @@ const getLoanById = (req, res) => {
     }   
 };
 
-const createNewLoan = (req, res) => {
+const createNewLoan = async (req, res) => {
     const { body } = req;
 
     if (
@@ -40,6 +41,7 @@ const createNewLoan = (req, res) => {
        // !body.observacion
     ){
         res.status(400).json({ status: "FAILED", data: { error: "Some parameters are missing"} });
+        return;
     }
 
     try { 
@@ -48,11 +50,11 @@ const createNewLoan = (req, res) => {
             estado: body.estado,        
             //fechaInicio: body.fechaInicio, 
             fechaEstipuladaDev: body.fechaEstipuladaDev, 
-            fechaRealDev: null, //body.fechaRealDev, 
+            fechaRealDev: body.fechaRealDev, //null
             observacion: body.observacion
         };
 
-        const createdLoan = loanService.createNewLoan(newLoan);
+        const createdLoan = await loanService.createNewLoan(newLoan);
         res.status(201).json({ status: "OK", data: createdLoan});
     } catch (error) {
         res
@@ -61,12 +63,13 @@ const createNewLoan = (req, res) => {
     }
 };
 
-const updateOneLoan = (req, res) => {
+const updateOneLoan = async (req, res) => {
     const loanId = req.params.loanId;
     const { body } = req;
 
     if (!loanId) {
         res.status(400).json({ status: "FAILED", data: { error: "loanId not indicated"} }); 
+        return;
     }
 
     if (
@@ -76,10 +79,11 @@ const updateOneLoan = (req, res) => {
         !body.fechaEstipuladaDev
     ){
         res.status(400).json({ status: "FAILED", data: { error: "Estado, fechaInicio and fechaEstipuladaDev can't be null"} });
+        return;
     }
 
     try {
-        const updatedLoan = loanService.updateOneLoan(loanId, body);
+        const updatedLoan = await loanService.updateOneLoan(loanId, body);
         res.status(200).json(updatedLoan);
     } catch (error) {
         res
@@ -88,15 +92,16 @@ const updateOneLoan = (req, res) => {
     }
 };
 
-const deleteOneLoan = (req, res) => {
-    const { params: loanId } = req; 
+const deleteOneLoan = async (req, res) => {
+    const loanId = req.params.loanId; 
 
     if (!loanId) {
         res.status(400).json({ status: "FAILED", data: { error: "loanId not indicated" } });
+        return;
     }
 
     try {
-        loanService.deleteOneLoan(loanId);
+        await loanService.deleteOneLoan(loanId);
         res.status(204).json({ status: "OK", message: "Loan deleted" });
     } catch (error) {
         res
