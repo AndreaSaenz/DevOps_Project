@@ -22,9 +22,6 @@ const User = db.define(
       type: DataTypes.STRING(15),
       allowNull: false,
     },
-    token: {
-      type: DataTypes.STRING(255),
-    },
   },
   {
     timestamps: true,

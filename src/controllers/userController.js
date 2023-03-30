@@ -1,6 +1,7 @@
 const { Sequelize } = require("sequelize");
 const bcrypt = require("bcrypt");
-const userService = require("../services/userServices");
+const userService = require("../services/userService");
+const jwt = require("jsonwebtoken");
 
 const register = async (req, res) => {
   const { body } = req;
@@ -22,7 +23,8 @@ const register = async (req, res) => {
       password: encryptedPassword,
     };
     const createdUser = await userService.registerNewUser(newUser);
-    res.status(201).send({ status: "OK", data: createdUser.token });
+    const token = jwt.sign({ user: createdUser }, "secretKey");
+    res.status(201).send({ status: "OK", data: createdUser, token: token });
   } catch (error) {
     res
       .status(error?.status || 500)
@@ -37,9 +39,12 @@ const logIn = async (req, res) => {
   }
   try {
     const user = await userService.logInUser(body.userName, body.password);
-    res
-      .status(201)
-      .send({ status: "OK", message: "Welcome " + user.userName, data: user });
+    const token = jwt.sign({ user: user }, "secretKey");
+    res.status(201).send({
+      status: "Ok",
+      message: "Welcome ",
+      token: token,
+    });
   } catch (error) {
     res
       .status(error?.status || 500)
