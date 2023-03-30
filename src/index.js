@@ -1,8 +1,8 @@
-const express = require('express')
+const express = require('express');
 const studentRouter = require("./routes/studentRoutes"); 
 const loanRouter = require("./routes/loanRoutes"); 
 const db = require("./database/config");
-const app = express()
+const app = express();
 
 const PORT = 3000;
 
