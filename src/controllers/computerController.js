@@ -50,6 +50,7 @@ const createNewComputer = async (req, res) => {
             //id: body.id,
             Name: body.Name,        
             yearModel: body.yearModel, 
+            memory: body.memory,
             monitorSize: body.monitorSize, 
             ram: body.ram,
             processor: body.processor

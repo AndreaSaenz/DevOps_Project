@@ -35,13 +35,10 @@ const createNewFine = async (req, res) => {
   const { body } = req;
 
   // Validation for all the necessary info
-  if (!(body.monto && body.observacion && body.folioSolictud && body.estado)) {
+  if (!body.monto || !body.folioSolictud) {
     res
       .status(400)
-      .json({
-        status: "FAILED",
-        data: { error: "Some parameters are missing" },
-      });
+      .json({ status: "FAILED", data: { error: "Some parameters are missing" } });
     return;
   }
 
