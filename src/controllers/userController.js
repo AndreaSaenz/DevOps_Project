@@ -13,7 +13,6 @@ const register = async (req, res) => {
     });
   }
 
-  //encrypt password
   encryptedPassword = await bcrypt.hash(body.password, 10);
 
   try {

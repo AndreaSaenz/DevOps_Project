@@ -12,10 +12,6 @@ const Loan = db.define('solicitud', {
         type: DataTypes.BOOLEAN, //true=devuelto, false=no devuelto
         allowNull: false
     },
-    /*fechaInicio:{ 
-        type: DataTypes.DATE,
-        allowNull: false
-    }, */
     fechaEstipuladaDev:{ 
         type: DataTypes.DATE,
         //allowNull: false

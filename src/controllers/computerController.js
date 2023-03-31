@@ -33,7 +33,6 @@ const createNewComputer = async (req, res) => {
     const { body } = req;
 
     if (
-        //!body.id ||
         !body.Name ||
         !body.yearModel ||
         !body.memory||
@@ -47,7 +46,6 @@ const createNewComputer = async (req, res) => {
 
     try { 
         const newComputer = {
-            //id: body.id,
             Name: body.Name,        
             yearModel: body.yearModel, 
             memory: body.memory,
@@ -75,7 +73,6 @@ const updateOneComputer = async (req, res) => {
     }
 
     if (
-        //!body.id ||
         !body.Name 
     ){
         res.status(400).json({ status: "FAILED", data: { error: "Name can't be null"} });

@@ -35,7 +35,6 @@ const createNewStudent = async (req, res) => {
   const { body } = req;
 
   if (
-    //!body.id ||
     !body.Name ||
     !body.email ||
     !body.telefono ||
@@ -50,7 +49,6 @@ const createNewStudent = async (req, res) => {
 
   try {
     const newStudent = {
-      //id: body.id,
       Name: body.Name,
       email: body.email,
       telefono: body.telefono,
@@ -79,7 +77,6 @@ const updateOneStudent = async (req, res) => {
   }
 
   if (
-    //!body.id ||
     !body.Name ||
     !body.email
   ) {

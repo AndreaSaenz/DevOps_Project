@@ -33,12 +33,8 @@ const createNewLoan = async (req, res) => {
     const { body } = req;
 
     if (
-        //!body.folio ||
         !body.estado ||
-       // !body.fechaInicio ||
-        !body.fechaEstipuladaDev //||
-       // !body.fechaRealDev ||
-       // !body.observacion
+        !body.fechaEstipuladaDev
     ){
         res.status(400).json({ status: "FAILED", data: { error: "Some parameters are missing"} });
         return;
@@ -46,9 +42,7 @@ const createNewLoan = async (req, res) => {
 
     try { 
         const newLoan = {
-            //folio: body.folio,
             estado: body.estado,        
-            //fechaInicio: body.fechaInicio, 
             fechaEstipuladaDev: body.fechaEstipuladaDev, 
             fechaRealDev: body.fechaRealDev, //null
             observacion: body.observacion
@@ -73,7 +67,6 @@ const updateOneLoan = async (req, res) => {
     }
 
     if (
-        //!body.folio ||
         !body.estado ||
         !body.fechaInicio ||
         !body.fechaEstipuladaDev

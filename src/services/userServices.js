@@ -14,7 +14,6 @@ const registerNewUser = async (newUser, res) => {
     }
     const createdUser = await User.create(newUser);
 
-    // return new user
     return createdUser;
   } catch (error) {
     throw { status: error?.status || 500, message: error?.message || error };

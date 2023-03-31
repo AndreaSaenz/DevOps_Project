@@ -34,7 +34,6 @@ const getFineById = async (req, res) => {
 const createNewFine = async (req, res) => {
   const { body } = req;
 
-  // Validation for all the necessary info
   if (!body.monto || !body.folioSolictud) {
     res
       .status(400)
