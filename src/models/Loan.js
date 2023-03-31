@@ -18,14 +18,14 @@ const Loan = db.define('solicitud', {
     }, */
     fechaEstipuladaDev:{ 
         type: DataTypes.DATE,
-        allowNull: false
+        //allowNull: false
     },
     fechaRealDev: { 
         type: DataTypes.DATE //,
         //allowNull: true
     },
     observacion: {
-        type: DataTypes.STRING(250)
+        type: DataTypes.STRING
     }
 },
 {

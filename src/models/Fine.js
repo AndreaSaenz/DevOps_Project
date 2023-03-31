@@ -15,7 +15,7 @@ const Fine = db.define(
       allowNull: false,
     },
     observacion: {
-      type: DataTypes.STRING(250),
+      type: DataTypes.STRING,
       allowNull: false,
     },
     folioSolicitud: {
