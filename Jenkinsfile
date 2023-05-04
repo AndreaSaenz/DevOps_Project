@@ -25,14 +25,7 @@ pipeline {
         stage('Stop containers') {
             steps {
                 sh 'running=$(docker ps --filter name=devops_project-$branch* --filter status=running -aq)'
-                sh 'if [-z $running]
-                        then
-                            #Print error message
-                            echo "No hay contenedores ejecutandose"
-                        else
-                            #Se apagan los contenedores con el mismo nombre
-                            docker ps --filter name=devops_project-$branch* --filter status=running -aq | xargs docker stop
-                    fi'
+                sh 'if [-z $running]then #Print error message echo "No hay contenedores ejecutandose" else #Se apagan los contenedores con el mismo nombre docker ps --filter name=devops_project-$branch* --filter status=running -aq | xargs docker stop fi'
                 sh 'docker run -d -p 8080:8080 --name sicei-container sicei-${GIT_BRANCH}:1.0.0-${BUILD_NUMBER}'
                 sh 'docker container ls -a'
                 sh 'docker run -p 127.0.0.1:30$BUILD_NUMBER:3000 --name devops_project-$branch-BUILD_NUMBER -d devops_project-$branch:1.0.0-$BUILD_NUMBER'
