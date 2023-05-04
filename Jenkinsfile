@@ -2,11 +2,6 @@ pipeline {
      agent any
     
     stages {
-        stage('Clone Project') {
-            steps {
-                git 'https://github.com/AndreaSaenz/DevOps_Project.git'
-            }
-        }
         stage('Build') {
             steps {
                 sh 'npm install express --save.'
