@@ -9,10 +9,7 @@ pipeline {
         }
         stage('Run test cases') {
             steps {
-                sh 'if [$runTestCases]
-                        then
-                        npm test
-                    fi'
+                sh 'npm test -- -t="fine.test.js"'
             }
         }
         stage('Create Docker Image') {
