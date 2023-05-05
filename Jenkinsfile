@@ -19,7 +19,7 @@ pipeline {
                 sh 'echo $brch'
                 sh 'bldNum=$(echo $BUILD_NUMBER)'
                 sh 'echo $bldNum'
-                build job: 'DevOpsProject-QA-Deploy', parameters: [string(name: 'branch', value: '${GIT_BRANCH}'), string(name: 'buildNumber', value: '$BUILD_NUMBER')]
+                build job: 'DevOpsProject-QA-Deploy', parameters: [string(name: 'brnch', value: '$brch'), string(name: 'bldNumber', value: '$bldNum')]
             }
         }
     }
