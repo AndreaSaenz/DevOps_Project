@@ -1,7 +1,7 @@
 pipeline {
      agent any
     parameters {
-        run(description: 'Descripción del parámetro 1', filter: 'ALL', name: 'brnch', projectName: 'DevOpsProject-QA-Pipeline')
+        run(description: 'Descripción del parámetro 1', filter: 'ALL', name: 'brch', projectName: 'DevOpsProject-QA-Pipeline')
         string(name: 'bldNumber', defaultValue: '', description: 'Descripción del parámetro 2')
     }
     stages {
