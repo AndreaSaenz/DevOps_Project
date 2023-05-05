@@ -1,5 +1,5 @@
 pipeline {
-     agent any
+    agent any
     parameters {
         string(name: 'branch', defaultValue: 'develop', description: 'Descripción del parámetro 1')
         string(name: 'buildNumber', defaultValue: '$BUILD_NUMBER', description: 'Descripción del parámetro 2')
