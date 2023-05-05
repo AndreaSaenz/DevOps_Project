@@ -13,7 +13,9 @@ pipeline {
             }
         }
         stage('Call other Jenkinsfile') {
-            build job: 'JenkinsfileDeploy', parameters: [string(name: 'branch', value: '$GIT_BRANCH | cut -d'/' -f 2'), string(name: 'buildNumber', value: '$BUILD_NUMBER')]
+            steps {
+                build job: 'JenkinsfileDeploy', parameters: [string(name: 'branch', value: '$GIT_BRANCH | cut -d'/' -f 2'), string(name: 'buildNumber', value: '$BUILD_NUMBER')]
+            }
         }
     }
 }
