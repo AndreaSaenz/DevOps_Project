@@ -1,18 +1,18 @@
 pipeline {
      agent any
     parameters {
-        string(name: 'brnch', defaultValue: '', description: 'Descripción del parámetro 1')
-        string(name: 'bldNumber', defaultValue: '', description: 'Descripción del parámetro 2')
+        string(name: 'branch', defaultValue: '', description: 'Descripción del parámetro 1')
+        string(name: 'buildNumber', defaultValue: '', description: 'Descripción del parámetro 2')
     }
     stages {
         stage('Create Docker Image') {
             steps {
-                sh 'echo $brnch'
-                sh 'echo $params.brnch'
-                sh 'echo ${params.brnch}'
-                sh 'echo $bldNumber'
-                sh 'echo $params.bldNumber'
-                sh 'echo ${params.bldNumber}'
+                sh 'echo $branch'
+                sh 'echo $params.branch'
+                sh 'echo ${params.branch}'
+                sh 'echo $buildNumber'
+                sh 'echo $params.buildNumber'
+                sh 'echo ${params.buildNumber}'
                 sh 'docker image ls -a'
                 sh 'docker build . -t devops_project-${params.branch}:1.0.0-${params.buildNumber}'
                 sh 'docker image ls -a'
