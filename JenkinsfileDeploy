@@ -4,7 +4,7 @@ pipeline {
         string(name: 'branch', defaultValue: '', description: 'Descripción del parámetro 1')
         string(name: 'buildNumber', defaultValue: '', description: 'Descripción del parámetro 2')
     }
-    
+    stages {
         stage('Create Docker Image') {
             steps {
                 sh 'docker image ls -a'
