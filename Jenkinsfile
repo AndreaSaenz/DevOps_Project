@@ -9,6 +9,7 @@ pipeline {
         }
         stage('Run test cases') {
             steps {
+                sh 'echo "Ejecutando test cases"'
                 sh '#npm test -- -t="fine.test.js"'
             }
         }
