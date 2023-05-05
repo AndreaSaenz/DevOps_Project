@@ -15,8 +15,10 @@ pipeline {
         }
         stage('Call other Jenkinsfile') {
             steps {
-                sh 'echo $GIT_BRANCH'
-                sh 'echo $BUILD_NUMBER'
+                sh 'brch=$(echo $GIT_BRANCH | cut -d"/" -f 2)'
+                sh 'echo $brch'
+                sh 'bldNum=$(echo $BUILD_NUMBER)'
+                sh 'echo $bldNum'
                 build job: 'DevOpsProject-QA-Deploy', parameters: [string(name: 'branch', value: '${GIT_BRANCH}'), string(name: 'buildNumber', value: '$BUILD_NUMBER')]
             }
         }
