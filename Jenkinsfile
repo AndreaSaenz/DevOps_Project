@@ -17,7 +17,8 @@ pipeline {
             steps {
                 sh 'brch=$(echo $GIT_BRANCH | cut -d"/" -f 2)'
                 sh 'bldNum=$(echo $BUILD_NUMBER)'
-                echo $brch,
+                echo '$brch'
+                sh 'echo x=$brch'
                 build job: 'DevOpsProject-QA-Deploy', parameters: [string(name: 'branch', value: '$brch' ), string(name: 'buildNumber', value: '$bldNum')]
             }
         }
