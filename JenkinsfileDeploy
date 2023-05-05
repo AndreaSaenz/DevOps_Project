@@ -8,7 +8,7 @@ pipeline {
         stage('Create Docker Image') {
             steps {
                 sh 'docker image ls -a'
-                sh 'docker build . -t devops_project-$branch:1.0.0-${parameters.buildNumber}'
+                sh 'docker build . -t devops_project-$branch:1.0.0-${params.buildNumber}'
                 sh 'docker image ls -a'
                 sh 'docker container ls -a'
             }
