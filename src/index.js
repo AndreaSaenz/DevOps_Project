@@ -1,13 +1,14 @@
-const express = require('express');
+const express = require("express");
 const db = require("./database/config");
 const app = express();
+const logger = require("./logger");
 
 const PORT = 3000;
 
 const userRouter = require("./routes/userRoutes");
-const studentRouter = require("./routes/studentRoutes"); 
+const studentRouter = require("./routes/studentRoutes");
 const computerRouter = require("./routes/computerRoutes");
-const loanRouter = require("./routes/loanRoutes"); 
+const loanRouter = require("./routes/loanRoutes");
 const fineRouter = require("./routes/fineRoutes");
 
 (async () => {
@@ -18,7 +19,7 @@ const fineRouter = require("./routes/fineRoutes");
   } catch (error) {
     throw error;
   }
-})()
+})();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -38,8 +39,8 @@ app.use((err, req, res, next) => {
   console.error(err.message, err.stack);
   res.status(statusCode).json({ message: err.message });
   return;
-})
+});
 
 app.listen(PORT, () => {
-  console.log(`DevOps_Project listening on port ${PORT}`)
-})
+  logger.info(`DevOps_Project listening on port ${PORT}`);
+});
