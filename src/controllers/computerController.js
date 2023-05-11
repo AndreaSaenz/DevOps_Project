@@ -1,6 +1,7 @@
 const computerService = require("../services/computerServices");
 const logger = require("../logger");
 const getAllComputers = async (req, res) => {
+  logger.debug("getAllFines at computerController ");
   try {
     const allComputers = await computerService.getAllComputers();
     res.status(200).json(allComputers);
@@ -15,6 +16,7 @@ const getAllComputers = async (req, res) => {
 };
 
 const getComputerById = async (req, res) => {
+  logger.debug("getComputerById at computerController ");
   const computerId = req.params.computerId;
 
   if (!computerId) {
@@ -41,6 +43,7 @@ const getComputerById = async (req, res) => {
 };
 
 const createNewComputer = async (req, res) => {
+  logger.debug("createNewComputer at computerController ");
   const { body } = req;
 
   if (
@@ -86,6 +89,7 @@ const createNewComputer = async (req, res) => {
 };
 
 const updateOneComputer = async (req, res) => {
+  logger.debug("updateOneComputer at computerController ");
   const computerId = req.params.computerId;
   const { body } = req;
 
@@ -126,6 +130,7 @@ const updateOneComputer = async (req, res) => {
 };
 
 const deleteOneComputer = async (req, res) => {
+  logger.debug("deleteOneComputer at computerController ");
   const computerId = req.params.computerId;
 
   if (!computerId) {
