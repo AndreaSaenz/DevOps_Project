@@ -1,5 +1,5 @@
 const { format, createLogger, transports } = require("winston");
-const { combine, timestamp, label, printf, prettyPrint } = format;
+const { combine, timestamp, label, printf } = format;
 const CATEGORY = "DevOps API: Computer loan service";
 
 const customFormat = printf(({ level, message, label, timestamp }) => {
