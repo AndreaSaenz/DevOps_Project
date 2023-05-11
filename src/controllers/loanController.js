@@ -2,6 +2,7 @@ const loanService = require("../services/loanServices");
 const logger = require("../logger");
 
 const getAllLoans = async (req, res) => {
+  logger.debug("getAllLoans at loanController ");
   try {
     const allLoans = await loanService.getAllLoans();
     res.status(200).json(allLoans);
@@ -16,6 +17,7 @@ const getAllLoans = async (req, res) => {
 };
 
 const getLoanById = async (req, res) => {
+  logger.debug("getLoanById at loanController ");
   const loanId = req.params.loanId;
 
   if (!loanId) {
@@ -42,6 +44,7 @@ const getLoanById = async (req, res) => {
 };
 
 const createNewLoan = async (req, res) => {
+  logger.debug("createNewLoan at loanController ");
   const { body } = req;
 
   if (!body.estado || !body.fechaEstipuladaDev) {
@@ -76,6 +79,7 @@ const createNewLoan = async (req, res) => {
 };
 
 const updateOneLoan = async (req, res) => {
+  logger.debug("updateOneLoan at loanController ");
   const loanId = req.params.loanId;
   const { body } = req;
 
@@ -116,6 +120,7 @@ const updateOneLoan = async (req, res) => {
 };
 
 const deleteOneLoan = async (req, res) => {
+  logger.debug("deleteOneLoan at loanController ");
   const loanId = req.params.loanId;
 
   if (!loanId) {
