@@ -2,6 +2,7 @@ const fineService = require("../services/fineServices");
 const logger = require("../logger");
 
 const getAllFines = async (req, res) => {
+  logger.debug("getAllFines at fineController ");
   try {
     const allFines = await fineService.getAllFines();
     res.status(200).json(allFines);
@@ -16,6 +17,7 @@ const getAllFines = async (req, res) => {
 };
 
 const getFineById = async (req, res) => {
+  logger.debug("getFineById at fineController ");
   const fineId = req.params.fineId;
 
   if (!fineId) {
@@ -42,6 +44,7 @@ const getFineById = async (req, res) => {
 };
 
 const createNewFine = async (req, res) => {
+  logger.debug("createNewFine at fineController ");
   const { body } = req;
 
   if (!body.monto || !body.folioSolictud) {
@@ -76,6 +79,7 @@ const createNewFine = async (req, res) => {
 };
 
 const updateOneFine = async (req, res) => {
+  logger.debug("updateOneFine at fineController ");
   const fineId = req.params.fineId;
   const { body } = req;
 
@@ -113,6 +117,7 @@ const updateOneFine = async (req, res) => {
 };
 
 const deleteOneFine = async (req, res) => {
+  logger.debug("deleteOneFine at fineController ");
   const fineId = req.params.fineId;
 
   if (!fineId) {
