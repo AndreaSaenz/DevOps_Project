@@ -22,7 +22,7 @@ const getFineById = async (req, res) => {
     res
       .status(400)
       .json({ status: "FAILED", data: { error: "fineId not indicated" } });
-    logger.error("MISSING_PARAMETERS: fineId");
+    logger.warn("MISSING_PARAMETERS: fineId");
     return;
   }
 
@@ -91,7 +91,7 @@ const updateOneFine = async (req, res) => {
     res
       .status(400)
       .json({ status: "FAILED", data: { error: "Status can't be null" } });
-    logger.error("MISSING_BODY: estado");
+    logger.warn("MISSING_BODY: estado");
     return;
   }
 
@@ -108,6 +108,7 @@ const updateOneFine = async (req, res) => {
     res
       .status(error?.status || 500)
       .json({ status: "FAILED", data: { error: error?.message || error } });
+    logger.error(error);
   }
 };
 
@@ -118,7 +119,7 @@ const deleteOneFine = async (req, res) => {
     res
       .status(400)
       .json({ status: "FAILED", data: { error: "fineId not indicated" } });
-    logger.error("MISSING_PARAMETERS: fineId");
+    logger.warn("MISSING_PARAMETERS: fineId");
     return;
   }
 
