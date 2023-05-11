@@ -1,5 +1,6 @@
 const studentService = require("../services/studentServices");
 const logger = require("../logger");
+const MaskData = require("maskdata");
 
 const getAllStudents = async (req, res) => {
   logger.debug("getAllStudents at studentController ");
@@ -73,9 +74,11 @@ const createNewStudent = async (req, res) => {
 
     const createdStudent = await studentService.createNewStudent(newStudent);
     res.status(201).json({ status: "OK", data: createdStudent });
+    const maskedEmail = MaskData.maskEmail2(body.email);
+    const maskedPhone = MaskData.maskPhone(body.telefono);
     logger.info(`VERB: ${req.method} - HEADERS: ${req.headers.authorization}`);
     logger.debug(
-      `Method: createNewStudent - URL: ${req.originalUrl} - BODY: {${req.body}}`
+      `Method: createNewStudent - URL: ${req.originalUrl} - BODY: { name: ${body.Name}, email: ${maskedEmail}, telefono: ${maskedPhone}, licenciatura: ${body.licenciatura}, semestre: ${body.semestre} }`
     );
   } catch (error) {
     res
@@ -113,11 +116,12 @@ const updateOneStudent = async (req, res) => {
       body
     );
     res.status(200).json(updatedStudent);
+    const maskedEmail = MaskData.maskEmail2(body.email);
     logger.info(
       `VERB: ${req.method} - PARAMS: fineId: ${req.params.fineId} - HEADERS: ${req.headers.authorization}`
     );
     logger.debug(
-      `Method: updateOneStudent - URL: ${req.originalUrl} - BODY: { ${req.body} }`
+      `Method: updateOneStudent - URL: ${req.originalUrl} - BODY: { name: ${body.Name}, email: ${maskedEmail} }`
     );
   } catch (error) {
     res
