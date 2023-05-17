@@ -3,12 +3,15 @@ const logger = require("../logger");
 const MaskData = require("maskdata");
 
 const getAllStudents = async (req, res) => {
-  logger.debug("getAllStudents at studentController ");
   try {
     const allStudents = await studentService.getAllStudents();
     res.status(200).json(allStudents);
-    logger.info(`VERB: ${req.method} - HEADERS: ${req.headers.authorization}`);
-    logger.debug(`Method: getAlltudents - URL: ${req.originalUrl}`);
+    logger.info(
+      `VERB: ${req.method}; QUERY_PARAMS: ${req.params}; HEADERS: Authorization: ${req.headers.authorization}`
+    );
+    logger.debug(
+      `Method: getAllStudents; Query_Method: findAll(); URL: ${req.originalUrl}`
+    );
   } catch (error) {
     res
       .status(error?.status || 500)
@@ -18,7 +21,6 @@ const getAllStudents = async (req, res) => {
 };
 
 const getStudentById = async (req, res) => {
-  logger.debug("getStudentById at studentController ");
   const studentId = req.params.studentId;
 
   if (!studentId) {
@@ -33,9 +35,11 @@ const getStudentById = async (req, res) => {
     const foundStudent = await studentService.getStudentById(studentId);
     res.status(200).json(foundStudent);
     logger.info(
-      `VERB: ${req.method} - PARAMS:{ fineId: ${req.params.fineId} } - HEADERS: ${req.headers.authorization}`
+      `VERB: ${req.method}; QUERY_PARAMS:{ studentId: ${req.params.fineId} }; HEADERS: Authorization: ${req.headers.authorization}`
     );
-    logger.debug(`Method: getStudentById - URL: ${req.originalUrl}`);
+    logger.debug(
+      `Method: getStudentById: Query_Method: findByPk(); URL: ${req.originalUrl}`
+    );
   } catch (error) {
     res
       .status(error?.status || 500)
@@ -45,7 +49,6 @@ const getStudentById = async (req, res) => {
 };
 
 const createNewStudent = async (req, res) => {
-  logger.debug("createStudent at studentController ");
   const { body } = req;
 
   if (
@@ -76,9 +79,11 @@ const createNewStudent = async (req, res) => {
     res.status(201).json({ status: "OK", data: createdStudent });
     const maskedEmail = MaskData.maskEmail2(body.email);
     const maskedPhone = MaskData.maskPhone(body.telefono);
-    logger.info(`VERB: ${req.method} - HEADERS: ${req.headers.authorization}`);
+    logger.info(
+      `VERB: ${req.method}; QUERY_PARAMS: ${req.params}; HEADERS: Authorization: ${req.headers.authorization}`
+    );
     logger.debug(
-      `Method: createNewStudent - URL: ${req.originalUrl} - BODY: { name: ${body.Name}, email: ${maskedEmail}, telefono: ${maskedPhone}, licenciatura: ${body.licenciatura}, semestre: ${body.semestre} }`
+      `Method: createNewStudent; Query_Method: create(); URL: ${req.originalUrl}; BODY: { name: ${body.Name}, email: ${maskedEmail}, telefono: ${maskedPhone}, licenciatura: ${body.licenciatura}, semestre: ${body.semestre} }`
     );
   } catch (error) {
     res
@@ -89,7 +94,6 @@ const createNewStudent = async (req, res) => {
 };
 
 const updateOneStudent = async (req, res) => {
-  logger.debug("updateOneStudent at studentController ");
   const studentId = req.params.studentId;
   const { body } = req;
 
@@ -118,10 +122,10 @@ const updateOneStudent = async (req, res) => {
     res.status(200).json(updatedStudent);
     const maskedEmail = MaskData.maskEmail2(body.email);
     logger.info(
-      `VERB: ${req.method} - PARAMS: fineId: ${req.params.fineId} - HEADERS: ${req.headers.authorization}`
+      `VERB: ${req.method} - PARAMS: studentId: ${req.params.fineId}; HEADERS: Authorization: ${req.headers.authorization}`
     );
     logger.debug(
-      `Method: updateOneStudent - URL: ${req.originalUrl} - BODY: { name: ${body.Name}, email: ${maskedEmail} }`
+      `Method: updateOneStudent; Query_Method: update(); URL: ${req.originalUrl}; BODY: { name: ${body.Name}, email: ${maskedEmail} }`
     );
   } catch (error) {
     res
@@ -132,7 +136,6 @@ const updateOneStudent = async (req, res) => {
 };
 
 const deleteOneStudent = async (req, res) => {
-  logger.debug("deleteOneStudent at studentController ");
   const studentId = req.params.studentId;
 
   if (!studentId) {
@@ -147,9 +150,11 @@ const deleteOneStudent = async (req, res) => {
     await studentService.deleteOneStudent(studentId);
     res.status(204).json({ status: "OK", message: "Student deleted" });
     logger.info(
-      `VERB: ${req.method} - PARAMS: {fineId: ${req.params.fineId}} - HEADERS: ${req.headers.authorization}`
+      `VERB: ${req.method}; QUERY_PARAMS: {studentId: ${req.params.fineId}}; HEADERS: Authorization: ${req.headers.authorization}`
     );
-    logger.debug(`Method: deleteOneStudent - URL: ${req.originalUrl}`);
+    logger.debug(
+      `Method: deleteOneStudent; Query_Method: destroy(); URL: ${req.originalUrl}`
+    );
   } catch (error) {
     res
       .status(error?.status || 500)

@@ -2,12 +2,15 @@ const fineService = require("../services/fineServices");
 const logger = require("../logger");
 
 const getAllFines = async (req, res) => {
-  logger.debug("getAllFines at fineController ");
   try {
     const allFines = await fineService.getAllFines();
     res.status(200).json(allFines);
-    logger.info(`VERB: ${req.method} - HEADERS: ${req.headers.authorization}`);
-    logger.debug(`Method: getAllFines - URL: ${req.originalUrl}`);
+    logger.info(
+      `VERB: ${req.method}; QUERY_PARAMS: ${req.params}; HEADERS: Authorization: ${req.headers.authorization}`
+    );
+    logger.debug(
+      `Method: getAllFines; Query_Method: findAll(); URL: ${req.originalUrl}`
+    );
   } catch (error) {
     res
       .status(error?.status || 500)
@@ -32,9 +35,11 @@ const getFineById = async (req, res) => {
     const foundFine = await fineService.getFineById(fineId);
     res.status(200).json(foundFine);
     logger.info(
-      `VERB: ${req.method} - PARAMS:{ fineId: ${req.params.fineId} } - HEADERS: ${req.headers.authorization}`
+      `VERB: ${req.method}; QUERY_PARAMS:{ fineId: ${req.params.fineId} }; HEADERS: Authorization: ${req.headers.authorization}`
     );
-    logger.debug(`Method: getFineById - URL: ${req.originalUrl}`);
+    logger.debug(
+      `Method: getFineById; Query_Method: findByPk(); URL: ${req.originalUrl}`
+    );
   } catch (error) {
     res
       .status(error?.status || 500)
@@ -44,7 +49,6 @@ const getFineById = async (req, res) => {
 };
 
 const createNewFine = async (req, res) => {
-  logger.debug("createNewFine at fineController ");
   const { body } = req;
 
   if (!body.monto || !body.folioSolictud) {
@@ -66,9 +70,11 @@ const createNewFine = async (req, res) => {
 
     const createdFine = await fineService.createNewFine(newFine);
     res.status(201).json({ status: "OK", data: createdFine });
-    logger.info(`VERB: ${req.method} - HEADERS: ${req.headers.authorization}`);
+    logger.info(
+      `VERB: ${req.method}; QUERY_PARAMS: ${req.params}; HEADERS: Authorization: ${req.headers.authorization}`
+    );
     logger.debug(
-      `Method: createNewFine - URL: ${req.originalUrl} - BODY: {${req.body}}`
+      `Method: createNewFine; Query_Method: create(); URL: ${req.originalUrl}; BODY: {${req.body}}`
     );
   } catch (error) {
     res
@@ -79,7 +85,6 @@ const createNewFine = async (req, res) => {
 };
 
 const updateOneFine = async (req, res) => {
-  logger.debug("updateOneFine at fineController ");
   const fineId = req.params.fineId;
   const { body } = req;
 
@@ -103,10 +108,10 @@ const updateOneFine = async (req, res) => {
     const updatedFine = await fineService.updateOneFine(fineId, body);
     res.status(200).json(updatedFine);
     logger.info(
-      `VERB: ${req.method} - PARAMS: fineId: ${req.params.fineId} - HEADERS: ${req.headers.authorization}`
+      `VERB: ${req.method}; QUERY_PARAMS: fineId: ${req.params.fineId}; HEADERS: Authorization: ${req.headers.authorization}`
     );
     logger.debug(
-      `Method: updateOneFine - URL: ${req.originalUrl} - BODY: { ${req.body} }`
+      `Method: updateOneFine; Query_Method: update(); URL: ${req.originalUrl}; BODY: { ${req.body} }`
     );
   } catch (error) {
     res
@@ -117,7 +122,6 @@ const updateOneFine = async (req, res) => {
 };
 
 const deleteOneFine = async (req, res) => {
-  logger.debug("deleteOneFine at fineController ");
   const fineId = req.params.fineId;
 
   if (!fineId) {
@@ -132,9 +136,11 @@ const deleteOneFine = async (req, res) => {
     await fineService.deleteOneFine(fineId);
     res.status(204).json({ status: "OK", message: "Fine deleted" });
     logger.info(
-      `VERB: ${req.method} - PARAMS: {fineId: ${req.params.fineId}} - HEADERS: ${req.headers.authorization}`
+      `VERB: ${req.method}; QUERY_PARAMS: {fineId: ${req.params.fineId}}; HEADERS: Authorization: ${req.headers.authorization}`
     );
-    logger.debug(`Method: deleteOneFine - URL: ${req.originalUrl}`);
+    logger.debug(
+      `Method: deleteOneFine; Query_Method: destroy(); URL: ${req.originalUrl}`
+    );
   } catch (error) {
     res
       .status(error?.status || 500)

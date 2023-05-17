@@ -1,12 +1,15 @@
 const computerService = require("../services/computerServices");
 const logger = require("../logger");
 const getAllComputers = async (req, res) => {
-  logger.debug("getAllFines at computerController ");
   try {
     const allComputers = await computerService.getAllComputers();
     res.status(200).json(allComputers);
-    logger.info(`VERB: ${req.method} - HEADERS: ${req.headers.authorization}`);
-    logger.debug(`Method: getAllComputers - URL: ${req.originalUrl}`);
+    logger.info(
+      `VERB: ${req.method}; QUERY_PARAMETERS: ${req.params}; HEADERS: Authorization: ${req.headers.authorization};`
+    );
+    logger.debug(
+      `Method: getAllComputers; Query_Method: findAll(); URL: ${req.originalUrl}`
+    );
   } catch (error) {
     res
       .status(error?.status || 500)
@@ -16,7 +19,6 @@ const getAllComputers = async (req, res) => {
 };
 
 const getComputerById = async (req, res) => {
-  logger.debug("getComputerById at computerController ");
   const computerId = req.params.computerId;
 
   if (!computerId) {
@@ -31,9 +33,11 @@ const getComputerById = async (req, res) => {
     const foundComputer = await computerService.getComputerById(computerId);
     res.status(200).json(foundComputer);
     logger.info(
-      `VERB: ${req.method} - PARAMS:{ computerId: ${req.params.fineId} } - HEADERS: ${req.headers.authorization}`
+      `VERB: ${req.method}; QUERY_PARAMS:{ computerId: ${req.params.fineId} }; HEADERS: Authorization: ${req.headers.authorization}`
     );
-    logger.debug(`Method: getComputerById - URL: ${req.originalUrl}`);
+    logger.debug(
+      `Method: getComputerById; Query_Method: findByPk() - URL: ${req.originalUrl}`
+    );
   } catch (error) {
     res
       .status(error?.status || 500)
@@ -43,7 +47,6 @@ const getComputerById = async (req, res) => {
 };
 
 const createNewComputer = async (req, res) => {
-  logger.debug("createNewComputer at computerController ");
   const { body } = req;
 
   if (
@@ -76,9 +79,11 @@ const createNewComputer = async (req, res) => {
       newComputer
     );
     res.status(201).json({ status: "OK", data: createdComputer });
-    logger.info(`VERB: ${req.method} - HEADERS: ${req.headers.authorization}`);
+    logger.info(
+      `VERB: ${req.method}; QUERY_PARAMS: ${req.params}; HEADERS: Authorization: ${req.headers.authorization}`
+    );
     logger.debug(
-      `Method: createNewComputer - URL: ${req.originalUrl} - BODY: {${req.body}}`
+      `Method: createNewComputer; Query_Method: create(); URL: ${req.originalUrl}; BODY: {${req.body}}`
     );
   } catch (error) {
     res
@@ -89,7 +94,6 @@ const createNewComputer = async (req, res) => {
 };
 
 const updateOneComputer = async (req, res) => {
-  logger.debug("updateOneComputer at computerController ");
   const computerId = req.params.computerId;
   const { body } = req;
 
@@ -116,10 +120,10 @@ const updateOneComputer = async (req, res) => {
     );
     res.status(200).json(updatedComputer);
     logger.info(
-      `VERB: ${req.method} - PARAMS: fineId: ${req.params.fineId} - HEADERS: ${req.headers.authorization}`
+      `VERB: ${req.method}; QUERY_PARAMS: fineId: ${req.params.fineId}; HEADERS: Authorization: ${req.headers.authorization}`
     );
     logger.debug(
-      `Method: updateOneComputer - URL: ${req.originalUrl} - BODY: { ${req.body} }`
+      `Method: updateOneComputer; Query_Method: update(); URL: ${req.originalUrl}; BODY: { ${req.body} }`
     );
   } catch (error) {
     res
@@ -130,7 +134,6 @@ const updateOneComputer = async (req, res) => {
 };
 
 const deleteOneComputer = async (req, res) => {
-  logger.debug("deleteOneComputer at computerController ");
   const computerId = req.params.computerId;
 
   if (!computerId) {
@@ -145,9 +148,11 @@ const deleteOneComputer = async (req, res) => {
     await computerService.deleteOneComputer(computerId);
     res.status(204).json({ status: "OK", message: "Computer deleted" });
     logger.info(
-      `VERB: ${req.method} - PARAMS: {fineId: ${req.params.fineId}} - HEADERS: ${req.headers.authorization}`
+      `VERB: ${req.method}; QUERY_PARAMS: {fineId: ${req.params.fineId}}; HEADERS: Authorization: ${req.headers.authorization}`
     );
-    logger.debug(`Method: deleteOneFComputer - URL: ${req.originalUrl}`);
+    logger.debug(
+      `Method: deleteOneComputer; Query_Method: destroy(); URL: ${req.originalUrl}`
+    );
   } catch (error) {
     res
       .status(error?.status || 500)

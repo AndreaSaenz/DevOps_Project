@@ -6,7 +6,6 @@ const MaskData = require("maskdata");
 const logger = require("../logger");
 
 const register = async (req, res) => {
-  logger.debug("register at userController");
   const { body } = req;
 
   if (!(body.userName && body.email && body.password)) {
@@ -32,9 +31,11 @@ const register = async (req, res) => {
     const maskedEmail = MaskData.maskEmail2(body.email);
 
     res.status(201).send({ status: "OK", data: createdUser, token: token });
-    logger.info(`VERB: ${req.method} - HEADERS: ${req.headers.authorization}`);
+    logger.info(
+      `VERB: ${req.method}; QUERY_PARAMS: ${req.params}; HEADERS: Authorization: ${req.headers.authorization}`
+    );
     logger.debug(
-      `Method: registerNewUser - URL: ${req.originalUrl} - BODY: {{userName: ${body.userName}, email: ${maskedEmail}, password: ${maskPassword}}`
+      `Method: registerNewUser; Query_Method: create(); URL: ${req.originalUrl}; BODY: {{userName: ${body.userName}, email: ${maskedEmail}, password: ${maskPassword}}`
     );
   } catch (error) {
     res
@@ -45,7 +46,6 @@ const register = async (req, res) => {
 };
 
 const logIn = async (req, res) => {
-  logger.debug("logIn at userController");
   const { body } = req;
   if (!(body.userName && body.password)) {
     res.status(400).send("User name and password are required");
@@ -60,9 +60,11 @@ const logIn = async (req, res) => {
       token: token,
     });
     const maskPassword = MaskData.maskPassword(body.password);
-    logger.info(`VERB: ${req.method} - HEADERS: ${req.headers.authorization}`);
+    logger.info(
+      `VERB: ${req.method}; QUERY_PARAMS: ${req.params}; HEADERS: Authorization: ${req.headers.authorization}`
+    );
     logger.debug(
-      `Method: logInUser - URL: ${req.originalUrl} - BODY: {{userName: ${body.userName}, password: ${maskPassword}}}`
+      `Method: logInUser; Query_Method: findOne(); URL: ${req.originalUrl}; BODY: {{userName: ${body.userName}, password: ${maskPassword}}}`
     );
   } catch (error) {
     res

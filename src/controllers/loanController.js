@@ -2,12 +2,15 @@ const loanService = require("../services/loanServices");
 const logger = require("../logger");
 
 const getAllLoans = async (req, res) => {
-  logger.debug("getAllLoans at loanController ");
   try {
     const allLoans = await loanService.getAllLoans();
     res.status(200).json(allLoans);
-    logger.info(`VERB: ${req.method} - HEADERS: ${req.headers.authorization}`);
-    logger.debug(`Method: getAllLoans - URL: ${req.originalUrl}`);
+    logger.info(
+      `VERB: ${req.method}; QUERY_PARAMS: ${req.params}; HEADERS: Authorization: ${req.headers.authorization}`
+    );
+    logger.debug(
+      `Method: getAllLoans; Query_Method: findAll(); URL: ${req.originalUrl}`
+    );
   } catch (error) {
     res
       .status(error?.status || 500)
@@ -17,9 +20,7 @@ const getAllLoans = async (req, res) => {
 };
 
 const getLoanById = async (req, res) => {
-  logger.debug("getLoanById at loanController ");
   const loanId = req.params.loanId;
-
   if (!loanId) {
     res
       .status(400)
@@ -32,9 +33,11 @@ const getLoanById = async (req, res) => {
     const foundLoan = await loanService.getLoanById(loanId);
     res.status(200).json(foundLoan);
     logger.info(
-      `VERB: ${req.method} - PARAMS:{ fineId: ${req.params.fineId} } - HEADERS: ${req.headers.authorization}`
+      `VERB: ${req.method} - QUERY_PARAMS:{ loanId: ${req.params.fineId} } - HEADERS: Authorization: ${req.headers.authorization}`
     );
-    logger.debug(`Method: getLoanById - URL: ${req.originalUrl}`);
+    logger.debug(
+      `Method: getLoanById; Query_Mathod: findByPk(); URL: ${req.originalUrl}`
+    );
   } catch (error) {
     res
       .status(error?.status || 500)
@@ -44,9 +47,7 @@ const getLoanById = async (req, res) => {
 };
 
 const createNewLoan = async (req, res) => {
-  logger.debug("createNewLoan at loanController ");
   const { body } = req;
-
   if (!body.estado || !body.fechaEstipuladaDev) {
     res.status(400).json({
       status: "FAILED",
@@ -66,9 +67,11 @@ const createNewLoan = async (req, res) => {
 
     const createdLoan = await loanService.createNewLoan(newLoan);
     res.status(201).json({ status: "OK", data: createdLoan });
-    logger.info(`VERB: ${req.method} - HEADERS: ${req.headers.authorization}`);
+    logger.info(
+      `VERB: ${req.method}; QUERY_PARAMS: ${req.params}; HEADERS: Authorization: ${req.headers.authorization}`
+    );
     logger.debug(
-      `Method: createNewLoan - URL: ${req.originalUrl} - BODY: {${req.body}}`
+      `Method: createNewLoan; Query_Method: create(); URL: ${req.originalUrl}; BODY: {${req.body}}`
     );
   } catch (error) {
     res
@@ -79,7 +82,6 @@ const createNewLoan = async (req, res) => {
 };
 
 const updateOneLoan = async (req, res) => {
-  logger.debug("updateOneLoan at loanController ");
   const loanId = req.params.loanId;
   const { body } = req;
 
@@ -106,10 +108,10 @@ const updateOneLoan = async (req, res) => {
     const updatedLoan = await loanService.updateOneLoan(loanId, body);
     res.status(200).json(updatedLoan);
     logger.info(
-      `VERB: ${req.method} - PARAMS: fineId: ${req.params.fineId} - HEADERS: ${req.headers.authorization}`
+      `VERB: ${req.method}; QUERY_PARAMS: loanId: ${req.params.fineId}; HEADERS: Authorization: ${req.headers.authorization}`
     );
     logger.debug(
-      `Method: updateOneLoan - URL: ${req.originalUrl} - BODY: { ${req.body} }`
+      `Method: updateOneLoan; Query_Method: update(); URL: ${req.originalUrl}; BODY: { ${req.body} }`
     );
   } catch (error) {
     res
@@ -120,7 +122,6 @@ const updateOneLoan = async (req, res) => {
 };
 
 const deleteOneLoan = async (req, res) => {
-  logger.debug("deleteOneLoan at loanController ");
   const loanId = req.params.loanId;
 
   if (!loanId) {
@@ -135,9 +136,11 @@ const deleteOneLoan = async (req, res) => {
     await loanService.deleteOneLoan(loanId);
     res.status(204).json({ status: "OK", message: "Loan deleted" });
     logger.info(
-      `VERB: ${req.method} - PARAMS: {fineId: ${req.params.fineId}} - HEADERS: ${req.headers.authorization}`
+      `VERB: ${req.method}; QUERY_PARAMS: {loanId: ${req.params.fineId}}; HEADERS: Authorization: ${req.headers.authorization}`
     );
-    logger.debug(`Method: deleteOneLoan - URL: ${req.originalUrl}`);
+    logger.debug(
+      `Method: deleteOneLoan; Query_Method: destroy(); URL: ${req.originalUrl}`
+    );
   } catch (error) {
     res
       .status(error?.status || 500)
