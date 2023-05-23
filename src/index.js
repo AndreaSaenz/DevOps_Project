@@ -2,6 +2,7 @@ const express = require("express");
 const db = require("./database/config");
 const app = express();
 const logger = require("./logger");
+const cors= require('cors')
 
 const PORT = 3000;
 
@@ -20,6 +21,8 @@ const fineRouter = require("./routes/fineRoutes");
     throw error;
   }
 })();
+
+app.use(cors());
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
