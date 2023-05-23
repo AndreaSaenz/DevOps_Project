@@ -7,7 +7,7 @@ pipeline {
     stages {
         stage('Create Docker Image') {
             steps {
-                def simpleBranch = branch.replace("origin/", "")
+                sh 'def simpleBranch = branch.replace("origin/", "")'
                 sh 'echo $simpleBranch'
                 sh 'docker image ls -a'
                 sh 'docker build . -t devops_project-$simpleBranch:1.0.0-$buildNumber'
