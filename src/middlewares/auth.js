@@ -10,18 +10,16 @@ const verifyToken = (req, res, next) => {
   //console.log(bearerHeader);
 
   if (!token) {
-    return res.status(403).send("A token is required for authentication");
+    return res.status(403).json("A token is required for authentication");
   }
-  
-  //console.log('Antes de decoded');
-  
+
   try {
     const onlyToken = token.split(" ");
     const decoded = jwt.verify(onlyToken[1], "secretKey");
     //console.log(decoded);
     req.user = decoded;
   } catch (error) {
-    return res.status(401).send("Invalid Token");
+    return res.status(401).json("Invalid Token");
   }
   return next();
   

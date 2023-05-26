@@ -41,16 +41,16 @@ const createNewFine = async (newFine) => {
   }
 };
 
-const updateOneFine = async (fineId, fineStatus) => {
+const updateOneFine = async (fineId, changes) => {
   try {
     const updateFine = await Fine.findByPk(fineId);
     if (!updateFine) {
       throw {
         status: 400,
-        message: "Fine already exists.",
+        message: "Fine not found",
       };
     }
-    await updateFine.update({ estado: fineStatus });
+    await updateFine.update(changes);
     updateFine.reload();
     return updateFine;
   } catch (error) {
@@ -64,7 +64,7 @@ const deleteOneFine = async (fineId) => {
     if (!fineToDelete) {
       throw {
         status: 400,
-        message: "Fine doesn't exists.",
+        message: "Fine not found",
       };
     }
     await fineToDelete.destroy();

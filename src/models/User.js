@@ -11,15 +11,15 @@ const User = db.define(
       primaryKey: true,
     },
     userName: {
-      type: DataTypes.STRING(50),
+      type: DataTypes.STRING,
       allowNull: false,
     },
     email: {
-      type: DataTypes.STRING(100),
+      type: DataTypes.STRING,
       allowNull: false,
     },
     password: {
-      type: DataTypes.STRING(15),
+      type: DataTypes.STRING,
       allowNull: false,
     },
   },
