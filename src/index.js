@@ -22,7 +22,12 @@ const fineRouter = require("./routes/fineRoutes");
   }
 })();
 
-app.use(cors());
+app.use(cors({ 
+  origin: ['http://localhost:4200'], 
+  credentials: true, 
+  methods: 'GET, POST, PUT, DELETE, OPTIONSs', 
+  allowedHeaders: 'Authorization, X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Allow-Request-Method' 
+}));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
