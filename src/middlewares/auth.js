@@ -4,35 +4,27 @@ const jwt = require("jsonwebtoken");
 const verifyToken = (req, res, next) => {
   const token =
     req.body.token || req.query.token || req.headers["authorization"];
-  const bearerHeader = req.headers["Authorization"];
+  //const bearerHeader = req.headers["Authorization"];
+
+  //console.log(token);
+  //console.log(bearerHeader);
+
   if (!token) {
     return res.status(403).send("A token is required for authentication");
   }
-  // if (typeof bearerHeader !== "undefined") {
-  //   const token = bearerHeader.split(" ")[1];
-  //   console.log(token);
-  //   req.token = token;
-  //   next();
-  // } else {
-  //   res.status(403).send({ mesagge: "Access denied" });
-  //   return;
-  // }
-
-  // jwt.verify(token, "secretKey", (error, authData) => {
-  //   if (error) {
-  //     res.status(403);
-  //   } else {
-  //     res.send({ message: "Access aprove", authData: authData });
-  //   }
-  // });
-
+  
+  //console.log('Antes de decoded');
+  
   try {
-    const decoded = jwt.verify(token, "secretKey");
+    const onlyToken = token.split(" ");
+    const decoded = jwt.verify(onlyToken[1], "secretKey");
+    //console.log(decoded);
     req.user = decoded;
   } catch (error) {
     return res.status(401).send("Invalid Token");
   }
   return next();
+  
 };
 
 module.exports = verifyToken;
