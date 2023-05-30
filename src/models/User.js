@@ -1,8 +1,8 @@
 const { DataTypes } = require("sequelize");
 const db = require("../database/config");
 
-const Fine = db.define(
-  "multa",
+const User = db.define(
+  "user",
   {
     id: {
       type: DataTypes.INTEGER,
@@ -10,30 +10,26 @@ const Fine = db.define(
       autoIncrement: true,
       primaryKey: true,
     },
-    monto: {
-      type: DataTypes.FLOAT,
-      allowNull: false,
-    },
-    observacion: {
+    userName: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    folioSolicitud: {
-      type: DataTypes.INTEGER,
+    email: {
+      type: DataTypes.STRING,
       allowNull: false,
     },
-    estado: {
-      type: DataTypes.BOOLEAN,
-      defaultValue: false,
+    password: {
+      type: DataTypes.STRING,
       allowNull: false,
     },
   },
   {
     timestamps: true,
-    createdAt: "fecha",
-    updatedAt: false,
+    createdAt: true,
+    updatedAt: "lastLogIn",
+    freezeTableName: true
   }
 );
 
-Fine.sync();
-module.exports = Fine;
+User.sync();
+module.exports = User;
