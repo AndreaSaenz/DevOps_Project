@@ -7,11 +7,16 @@ pipeline {
     stages {
         stage('Create Docker Image') {
             steps {
-                sh 'def simpleBranch = branch.replace("origin/", "")'
-                sh 'echo $simpleBranch'
                 sh 'docker image ls -a'
-                sh 'docker build . -t devops_project-$simpleBranch:1.0.0-$buildNumber'
+
+                sh '''
+                    simpleBranch=$(echo $branch | cut -d'/' -f 2)
+
+                    docker build . -t devops_project-$simpleBranch:1.0.0-$buildNumber
+                '''
+
                 sh 'docker image ls -a'
+
                 sh 'docker container ls -a'
             }
         }
@@ -32,6 +37,7 @@ pipeline {
         }
         stage('Run container') {
             steps {
+                
                 sh 'docker container ls -a'
                 sh 'docker run -p 127.0.0.1:30$buildNumber:3000 --name devops_project-$simpleBranch-$buildNumber -d devops_project-$simpleBranch:1.0.0-$buildNumber'
                 sh 'docker container ls -a'
