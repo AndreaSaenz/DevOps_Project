@@ -23,6 +23,7 @@ pipeline {
         stage('Stop containers') {
             steps {
                 sh '''
+                simpleBranch=$(echo $branch | cut -d'/' -f 2)
                 running=$(docker ps --filter name=devops_project-$simpleBranch* --filter status=running -aq)
                 if [ -z $running]
                 then 
