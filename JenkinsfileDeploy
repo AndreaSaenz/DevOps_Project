@@ -43,7 +43,7 @@ pipeline {
                 sh '''
                     simpleBranch=$(echo $branch | cut -d'/' -f 2)
 
-                    docker run -p 127.0.0.1:30$buildNumber:3000 --name devops_project-$simpleBranch-$buildNumber -d devops_project-$simpleBranch:1.0.0-$buildNumber
+                    docker run -p 127.0.0.1:3000:3000 --name devops_project-$simpleBranch-$buildNumber -d devops_project-$simpleBranch:1.0.0-$buildNumber
                 '''
                 sh 'docker container ls -a'
                 sh '''
