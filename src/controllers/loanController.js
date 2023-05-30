@@ -93,11 +93,11 @@ const updateOneLoan = async (req, res) => {
     return;
   }
 
-  if (body.estado == null || !body.fechaInicio || !body.fechaEstipuladaDev) {
+  if (body.estado == null || !body.fechaEstipuladaDev) {
     res.status(400).json({
       status: "FAILED",
       data: {
-        error: "Estado, fechaInicio and fechaEstipuladaDev can't be null",
+        error: "Estado and fechaEstipuladaDev can't be null",
       },
     });
     logger.warn("MISSING SOME BODY ELEMENTS");
