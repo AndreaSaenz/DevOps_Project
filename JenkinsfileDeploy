@@ -1,0 +1,58 @@
+pipeline {
+    agent any
+    parameters {
+        string(name: 'branch', defaultValue: 'develop', description: 'Descripción del parámetro 1')
+        string(name: 'buildNumber', defaultValue: '$BUILD_NUMBER', description: 'Descripción del parámetro 2')
+    }
+    stages {
+        stage('Create Docker Image') {
+            steps {
+                sh 'docker image ls -a'
+
+                sh '''
+                    simpleBranch=$(echo $branch | cut -d'/' -f 2)
+
+                    docker build . -t devops_project-$simpleBranch:1.0.0-$buildNumber
+                '''
+
+                sh 'docker image ls -a'
+
+                sh 'docker container ls -a'
+            }
+        }
+        stage('Stop containers') {
+            steps {
+                sh '''
+                simpleBranch=$(echo $branch | cut -d'/' -f 2)
+                running=$(docker ps --filter name=devops_project-$simpleBranch* --filter status=running -aq)
+                if [ -z $running]
+                then 
+                    #Print error message 
+                    echo "No hay contenedores ejecutandose" 
+                else 
+                    #Se apagan los contenedores con el mismo nombre 
+                    docker ps --filter name=devops_project-$simpleBranch* --filter status=running -aq | xargs docker stop 
+                fi 
+                '''
+            }
+        }
+        stage('Run container') {
+            steps {
+                
+                sh 'docker container ls -a'
+                sh '''
+                    simpleBranch=$(echo $branch | cut -d'/' -f 2)
+
+                    docker run -p 127.0.0.1:3000:3000 --name devops_project-$simpleBranch-$buildNumber -d devops_project-$simpleBranch:1.0.0-$buildNumber
+                '''
+                sh 'docker container ls -a'
+                sh '''
+                    simpleBranch=$(echo $branch | cut -d'/' -f 2)
+
+                    docker container start devops_project-$simpleBranch-$buildNumber
+                '''
+                sh 'docker container ls'
+            }
+        }
+    }
+}
