@@ -96,7 +96,7 @@ const updateOneFine = async (req, res) => {
     return;
   }
 
-  if (!body.estado) {
+  if (body.estado==null) {
     res
       .status(400)
       .json({ status: "FAILED", data: { error: "Status can't be null" } });
