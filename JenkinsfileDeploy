@@ -9,7 +9,11 @@ pipeline {
             steps {
                 sh 'docker image ls -a'
 
-                sh '''simpleBranch=$(echo $branch | cut -d'/' -f 2)docker build . -t devops_project-$simpleBranch:1.0.0-$buildNumber'''
+                sh '''
+                    simpleBranch=$(echo $branch | cut -d'/' -f 2)
+
+                    docker build . -t devops_project-$simpleBranch:1.0.0-$buildNumber
+                '''
 
                 sh 'docker image ls -a'
 
